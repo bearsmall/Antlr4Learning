@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 public class Col {
     public static void main(String[] args) throws IOException {
-        String inputFile = "t.rows";
+        String inputFile = "abc.idea";
         InputStream is = ExtractInterfaceTool.class.getClassLoader().getResourceAsStream(inputFile);
         CharStream inputStream = CharStreams.fromStream(is);
         RowsLexer lexer = new RowsLexer(inputStream);
