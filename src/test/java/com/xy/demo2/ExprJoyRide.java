@@ -1,6 +1,8 @@
 package com.xy.demo2;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -14,11 +16,12 @@ public class ExprJoyRide {
         if(args.length>0){
             inputFile = args[0];
         }
-        InputStream is = System.in;
-        if(inputFile!=null){
-            is = ExprJoyRide.class.getClassLoader().getResourceAsStream(inputFile);
+        InputStream is;
+        if(inputFile==null){
+            inputFile = "t.expr";
         }
-        ANTLRInputStream inputStream = new ANTLRInputStream(is);
+        is = ExprJoyRide.class.getClassLoader().getResourceAsStream(inputFile);
+        CharStream inputStream = CharStreams.fromStream(is);
         ExprLexer lexer = new ExprLexer(inputStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ExprParser parser = new ExprParser(tokens);

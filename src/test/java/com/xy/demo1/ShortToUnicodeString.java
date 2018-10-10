@@ -23,7 +23,7 @@ public class ShortToUnicodeString extends ArrayInitBaseListener {
     }
 
     /**
-     * 将每个整数翻译为四位的十六进制形式，然后加前缀\u【在此基础上用尖括号包围】
+     * 将每个整数翻译为四位的十六进制形式，然后加前缀【在此基础上用尖括号包围】
      * @param ctx
      */
     @Override
