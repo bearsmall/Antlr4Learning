@@ -1,0 +1,26 @@
+ /** Generate ParseException. */
+  
+  public ParseException generateParseException() {
+	String filename = "F:/erroroutput.txt";
+	Token errortok = token.next;
+    int line = errortok.beginLine, column = errortok.beginColumn;
+    String mess = (errortok.kind == 0) ? tokenImage[0] : errortok.image;
+    boolean append =false;  
+    try {
+    	//打开文件读写器，构建参数true以追加形式写文件
+
+    	FileWriter writer = new FileWriter(filename, true);
+
+    	writer.write(linshitest + ":Parse error at line " + line + ", column " + column + ".  Encountered: " + mess + "\r\n");
+
+    	writer.close();
+
+    	} catch (IOException e) {
+
+    	e.printStackTrace();
+
+    	}
+
+    return new ParseException("Parse error at line " + line + ", column " + column + ".  Encountered: " + mess);
+  }
+  
