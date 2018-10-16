@@ -1,5 +1,7 @@
-package com.xy.demo00;
+package com.xy.demo00.listener;
 
+import com.xy.demo00.JavaBaseListener;
+import com.xy.demo00.JavaParser;
 import org.antlr.v4.runtime.TokenStream;
 
 public class ExtractInterfaceListener extends JavaBaseListener {
