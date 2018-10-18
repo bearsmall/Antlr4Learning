@@ -3,9 +3,9 @@ package com.bupt.cmp.ast.cpp;
 
 
 import com.bupt.cmp.ast.SimpleNode;
-import com.bupt.cmp.common.ClassScope;
-import com.bupt.cmp.common.Scope;
-import com.bupt.cmp.common.SymtabManager;
+import com.bupt.cmp.ast.ClassScope;
+import com.bupt.cmp.ast.Scope;
+import com.bupt.cmp.ast.SymtabManager;
 import com.bupt.cmp.lang.file.DefaultCodeFile;
 import com.bupt.cmp.pretreat.TreeProcess;
 

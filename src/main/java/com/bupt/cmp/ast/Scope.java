@@ -1,4 +1,4 @@
-package com.bupt.cmp.common;
+package com.bupt.cmp.ast;
 import java.util.Hashtable;
 
 public class Scope {
