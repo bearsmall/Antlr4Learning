@@ -75,9 +75,9 @@ public class RowsParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	//在生成的RowsParser中添加一些成�?
+	//在生成的RowsParser中添加一些成
 	    int col;
-	    public RowsParser(TokenStream input, int col){//自定义的构�?�器
+	    public RowsParser(TokenStream input, int col){//自定义的构器
 	        this(input);
 	        this.col = col;
 	    }

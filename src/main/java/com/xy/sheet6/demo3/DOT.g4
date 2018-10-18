@@ -25,6 +25,7 @@ id 			: ID
 			| NUMBER
 			;
 
+DIGRAPH		: [Dd][Ii][Gg][Rr][Aa][Pp][Hh];
 STRICT		: [Ss][Tt][Rr][Ii][Cc][Tt];
 GRAPH		: [Gg][Rr][Aa][Pp][Hh];
 IDGRAPH		: [Dd][Ii][Gg][Rr][Aa][Pp][Hh];

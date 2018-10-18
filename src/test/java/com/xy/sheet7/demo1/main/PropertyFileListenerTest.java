@@ -8,11 +8,13 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.Test;
 
 import java.io.IOException;
 
 public class PropertyFileListenerTest {
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void test() throws IOException{
         CharStream inputStream = CharStreams.fromStream(PropertyFileMapperTest.class.getClassLoader().getResourceAsStream("t.properties"));
         PropertyFileLexer lexer = new PropertyFileLexer(inputStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);

@@ -7,12 +7,14 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class InsertSerialID {
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void test() throws IOException {
         String inputFile = "InsertSerialIDListenerTest.java";
         InputStream is = ExtractInterfaceTool.class.getClassLoader().getResourceAsStream(inputFile);
         CharStream inputStream = CharStreams.fromStream(is);

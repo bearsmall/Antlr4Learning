@@ -1,4 +1,4 @@
-// Generated from D:/Users/bearsmall/IdeaProjects/Antlr4Learning/src/main/java/com/xy/sheet6/demo3\DOT.g4 by ANTLR 4.7
+// Generated from D:/Users/bearsmalll/IdeaProjects/Antlr4Learning/src/main/java/com/xy/sheet6/demo3\DOT.g4 by ANTLR 4.7
 package com.xy.sheet6.demo3;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

@@ -4,12 +4,14 @@ import com.xy.demo00.ExtractInterfaceTool;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class Col {
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void test() throws IOException{
         String inputFile = "abc.idea";
         InputStream is = ExtractInterfaceTool.class.getClassLoader().getResourceAsStream(inputFile);
         CharStream inputStream = CharStreams.fromStream(is);

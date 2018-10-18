@@ -1,4 +1,4 @@
-// Generated from D:/Users/bearsmall/IdeaProjects/Antlr4Learning/src/main/java/com/xy/sheet6/demo3\DOT.g4 by ANTLR 4.7
+// Generated from D:/Users/bearsmalll/IdeaProjects/Antlr4Learning/src/main/java/com/xy/sheet6/demo3\DOT.g4 by ANTLR 4.7
 package com.xy.sheet6.demo3;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -18,9 +18,9 @@ public class DOTParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, STRICT=11, GRAPH=12, IDGRAPH=13, NODE=14, EDGE=15, SUBGRAPH=16, 
-		ID=17, NUMBER=18, STRING=19, HTML_STRING=20, PREPROC=21, COMMENT=22, LINE_COMMENT=23, 
-		WS=24, DIGRAPH=25;
+		T__9=10, DIGRAPH=11, STRICT=12, GRAPH=13, IDGRAPH=14, NODE=15, EDGE=16, 
+		SUBGRAPH=17, ID=18, NUMBER=19, STRING=20, HTML_STRING=21, PREPROC=22, 
+		COMMENT=23, LINE_COMMENT=24, WS=25;
 	public static final int
 		RULE_graph = 0, RULE_stmt_list = 1, RULE_stmt = 2, RULE_attr_stmt = 3, 
 		RULE_attr_list = 4, RULE_a_list = 5, RULE_edge_stmt = 6, RULE_edgeRHS = 7, 
@@ -36,9 +36,9 @@ public class DOTParser extends Parser {
 		"':'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, null, null, "STRICT", 
-		"GRAPH", "IDGRAPH", "NODE", "EDGE", "SUBGRAPH", "ID", "NUMBER", "STRING", 
-		"HTML_STRING", "PREPROC", "COMMENT", "LINE_COMMENT", "WS", "DIGRAPH"
+		null, null, null, null, null, null, null, null, null, null, null, "DIGRAPH", 
+		"STRICT", "GRAPH", "IDGRAPH", "NODE", "EDGE", "SUBGRAPH", "ID", "NUMBER", 
+		"STRING", "HTML_STRING", "PREPROC", "COMMENT", "LINE_COMMENT", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -132,7 +132,7 @@ public class DOTParser extends Parser {
 
 			setState(31);
 			_la = _input.LA(1);
-			if ( !(_la==GRAPH || _la==DIGRAPH) ) {
+			if ( !(_la==DIGRAPH || _la==GRAPH) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1028,11 +1028,11 @@ public class DOTParser extends Parser {
 		"\b\3\b\5\bW\n\b\3\b\3\b\5\b[\n\b\3\t\3\t\3\t\5\t`\n\t\6\tb\n\t\r\t\16"+
 		"\tc\3\n\3\n\3\13\3\13\5\13j\n\13\3\f\3\f\5\fn\n\f\3\r\3\r\3\r\3\r\5\r"+
 		"t\n\r\3\16\3\16\5\16x\n\16\5\16z\n\16\3\16\3\16\3\16\3\16\3\17\3\17\3"+
-		"\17\2\2\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2\6\4\2\16\16\33\33\4\2"+
-		"\16\16\20\21\3\2\n\13\3\2\23\26\2\u0089\2\37\3\2\2\2\4/\3\2\2\2\6:\3\2"+
-		"\2\2\b<\3\2\2\2\nD\3\2\2\2\fP\3\2\2\2\16V\3\2\2\2\20a\3\2\2\2\22e\3\2"+
-		"\2\2\24g\3\2\2\2\26k\3\2\2\2\30o\3\2\2\2\32y\3\2\2\2\34\177\3\2\2\2\36"+
-		" \7\r\2\2\37\36\3\2\2\2\37 \3\2\2\2 !\3\2\2\2!#\t\2\2\2\"$\5\34\17\2#"+
+		"\17\2\2\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2\6\4\2\r\r\17\17\4\2\17"+
+		"\17\21\22\3\2\n\13\3\2\24\27\2\u0089\2\37\3\2\2\2\4/\3\2\2\2\6:\3\2\2"+
+		"\2\b<\3\2\2\2\nD\3\2\2\2\fP\3\2\2\2\16V\3\2\2\2\20a\3\2\2\2\22e\3\2\2"+
+		"\2\24g\3\2\2\2\26k\3\2\2\2\30o\3\2\2\2\32y\3\2\2\2\34\177\3\2\2\2\36 "+
+		"\7\16\2\2\37\36\3\2\2\2\37 \3\2\2\2 !\3\2\2\2!#\t\2\2\2\"$\5\34\17\2#"+
 		"\"\3\2\2\2#$\3\2\2\2$%\3\2\2\2%&\7\3\2\2&\'\5\4\3\2\'(\7\4\2\2(\3\3\2"+
 		"\2\2)+\5\6\4\2*,\7\5\2\2+*\3\2\2\2+,\3\2\2\2,.\3\2\2\2-)\3\2\2\2.\61\3"+
 		"\2\2\2/-\3\2\2\2/\60\3\2\2\2\60\5\3\2\2\2\61/\3\2\2\2\62;\5\24\13\2\63"+
@@ -1048,7 +1048,7 @@ public class DOTParser extends Parser {
 		"a\\\3\2\2\2bc\3\2\2\2ca\3\2\2\2cd\3\2\2\2d\21\3\2\2\2ef\t\4\2\2f\23\3"+
 		"\2\2\2gi\5\26\f\2hj\5\n\6\2ih\3\2\2\2ij\3\2\2\2j\25\3\2\2\2km\5\34\17"+
 		"\2ln\5\30\r\2ml\3\2\2\2mn\3\2\2\2n\27\3\2\2\2op\7\f\2\2ps\5\34\17\2qr"+
-		"\7\f\2\2rt\5\34\17\2sq\3\2\2\2st\3\2\2\2t\31\3\2\2\2uw\7\22\2\2vx\5\34"+
+		"\7\f\2\2rt\5\34\17\2sq\3\2\2\2st\3\2\2\2t\31\3\2\2\2uw\7\23\2\2vx\5\34"+
 		"\17\2wv\3\2\2\2wx\3\2\2\2xz\3\2\2\2yu\3\2\2\2yz\3\2\2\2z{\3\2\2\2{|\7"+
 		"\3\2\2|}\5\4\3\2}~\7\4\2\2~\33\3\2\2\2\177\u0080\t\5\2\2\u0080\35\3\2"+
 		"\2\2\25\37#+/:AFKNRVZ_cimswy";

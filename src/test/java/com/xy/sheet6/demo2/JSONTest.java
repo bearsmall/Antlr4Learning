@@ -4,11 +4,13 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.junit.Test;
 
 import java.io.IOException;
 
 public class JSONTest {
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void test() throws IOException{
         CharStream inputStream = CharStreams.fromStream(JSONTest.class.getClassLoader().getResourceAsStream("t.json"));
         JSONLexer lexer = new JSONLexer(inputStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);

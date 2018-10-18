@@ -76,7 +76,7 @@ public class PropertyFileParser extends Parser {
 	public ATN getATN() { return _ATN; }
 
 
-		void startFile(){ }	//空实�?
+		void startFile(){ }
 		void finishFile(){ }
 		void defineProperty(Token name, Token value){ }
 

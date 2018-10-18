@@ -6,11 +6,13 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.junit.Test;
 
 import java.io.IOException;
 
 public class CymbolTest {
-    public static void main(String[] args) throws IOException {
+
+    public void test() throws IOException{
         CharStream inputStream = CharStreams.fromStream(CymbolTest.class.getClassLoader().getResourceAsStream("t.cymbol"));
         CymbolLexer lexer = new CymbolLexer(inputStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);

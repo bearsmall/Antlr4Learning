@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-public class JavaCodeCompare {
+public class JavaCodeCompareTest {
     public static ICodeFactory icodeFactory;
     CompareDirector mlcsd  = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.TEXT_COMPARE);         //比对指示器1（文本比对）;
     CompareDirector tokenmd  = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.TOKEN_COMPARE);    //比对指示器2（Token比对）;
@@ -17,8 +17,10 @@ public class JavaCodeCompare {
 
     static {
         icodeFactory = JavaCodeFactory.getInstance();
-        defaultCodeFile1 = icodeFactory.generateDefectCodeFile(new File("D:\\test\\demo\\Demo1.java"));
-        defaultCodeFile2 = icodeFactory.generateDefectCodeFile(new File("D:\\test\\demo\\Demo2.java"));
+        String src1 = JavaCodeCompareTest.class.getClassLoader().getResource("Demo1.java").getPath();
+        String src2 = JavaCodeCompareTest.class.getClassLoader().getResource("Demo2.java").getPath();
+        defaultCodeFile1 = icodeFactory.generateDefectCodeFile(new File(src1));
+        defaultCodeFile2 = icodeFactory.generateDefectCodeFile(new File(src2));
     }
 
     @Test
@@ -46,7 +48,7 @@ public class JavaCodeCompare {
 
     @Test
     public void test3(){
-        File file = new File(JavaCodeCompare.class.getResource("").getPath());
+        File file = new File(JavaCodeCompareTest.class.getResource("").getPath());
         System.out.println(file.getAbsolutePath());
     }
 }

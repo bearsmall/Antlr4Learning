@@ -70,7 +70,7 @@ public class PropertyFileLexer extends Lexer {
 	}
 
 
-		void startFile(){ }	//空实�?
+		void startFile(){ }
 		void finishFile(){ }
 		void defineProperty(Token name, Token value){ }
 
