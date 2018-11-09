@@ -1,4 +1,4 @@
-package com.xy.demo00;
+package com.cmp.antlr.java9;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class LexicalParser {
 
     @Test
     public void test() throws IOException {
-        File root = new File("E:\\src");
+        File root = new File("/home/xiongy/src");
         Long start = System.currentTimeMillis();
         render(root);
         Long end = System.currentTimeMillis();
@@ -69,9 +68,9 @@ public class LexicalParser {
         if(file.getPath().endsWith(".java")){
             FileInputStream is = new FileInputStream(file);
             CharStream inputStream = CharStreams.fromStream(is);
-            JavaLexer lexer = new JavaLexer(inputStream);
+            Java9Lexer lexer = new Java9Lexer(inputStream);
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            JavaParser parser = new JavaParser(tokenStream);
+            Java9Parser parser = new Java9Parser(tokenStream);
             ParseTree tree = parser.compilationUnit();
         }
     }

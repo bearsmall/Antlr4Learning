@@ -1,4 +1,4 @@
-package com.xy.demo00;
+package com.cmp.antlr.c;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class LexicalParser {
 
     @Test
     public void test() throws IOException {
-        File root = new File("E:\\src");
+        File root = new File("E:\\redis-unstable");
         Long start = System.currentTimeMillis();
         render(root);
         Long end = System.currentTimeMillis();
@@ -66,12 +65,12 @@ public class LexicalParser {
     }
 
     public void runFile(File file) throws IOException {
-        if(file.getPath().endsWith(".java")){
+        if(file.getPath().endsWith(".c")||file.getPath().endsWith(".h")||file.getPath().endsWith(".cpp")){
             FileInputStream is = new FileInputStream(file);
             CharStream inputStream = CharStreams.fromStream(is);
-            JavaLexer lexer = new JavaLexer(inputStream);
+            CLexer lexer = new CLexer(inputStream);
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            JavaParser parser = new JavaParser(tokenStream);
+            CParser parser = new CParser(tokenStream);
             ParseTree tree = parser.compilationUnit();
         }
     }
