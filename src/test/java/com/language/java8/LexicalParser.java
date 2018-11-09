@@ -8,15 +8,49 @@ import org.junit.Test;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.*;
 
 public class LexicalParser {
 
+    List<File> fileList = new LinkedList<File>();
+
     @Test
     public void test() throws IOException {
-        File root = new File("E:\\src");
+        File root = new File("/home/xiongy/code/src");
         Long start = System.currentTimeMillis();
         render(root);
+        ExecutorService executorService = new ThreadPoolExecutor(32,32,60, TimeUnit.SECONDS,new LinkedBlockingDeque<>());
+        int size = fileList.size();
+        final CountDownLatch countDownLatch = new CountDownLatch(size);
+        for (File file:fileList){
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    FileInputStream is = null;
+                    try {
+                        is = new FileInputStream(file);
+                        CharStream inputStream = CharStreams.fromStream(is);
+                        Java8Lexer lexer = new Java8Lexer(inputStream);
+                        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+                        Java8Parser parser = new Java8Parser(tokenStream);
+                        ParseTree tree = parser.compilationUnit();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }finally {
+                        countDownLatch.countDown();
+                    }
+                }
+            });
+        }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Long end = System.currentTimeMillis();
         System.out.println(end-start);
     }
@@ -55,21 +89,13 @@ public class LexicalParser {
                 iteratorFile(children);
             }
         }else if (root.isFile()){
-//                Long start = System.currentTimeMillis();
             runFile(root);
-//                Long end = System.currentTimeMillis();
-//                System.out.println("parse file:"+root.getPath()+"\t spend "+(end-start));
         }
     }
 
     public void runFile(File file) throws IOException {
         if(file.getPath().endsWith(".java")){
-            FileInputStream is = new FileInputStream(file);
-            CharStream inputStream = CharStreams.fromStream(is);
-            Java8Lexer lexer = new Java8Lexer(inputStream);
-            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            Java8Parser parser = new Java8Parser(tokenStream);
-            ParseTree tree = parser.compilationUnit();
+            fileList.add(file);
         }
     }
 }

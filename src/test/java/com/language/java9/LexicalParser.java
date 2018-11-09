@@ -18,7 +18,7 @@ public class LexicalParser {
 
     @Test
     public void test() throws IOException {
-        File root = new File("E:\\src");
+        File root = new File("/home/xiongy/src");
         Long start = System.currentTimeMillis();
         render(root);
         Long end = System.currentTimeMillis();
