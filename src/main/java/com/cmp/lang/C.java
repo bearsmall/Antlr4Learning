@@ -27,9 +27,6 @@ public class C implements Language {
 			"super", "switch", "synchronized", "this", "throw", "throws",
 			"transient", "try", "void", "volatile", "while" };
 
-	public static final int Newline=115;
-	public static final int BlockComment=116;
-	public static final int LineComment=117;
 	/**
 	 * 全局唯一实例
 	 */
@@ -87,7 +84,7 @@ public class C implements Language {
 		List<LineStruct> linetokenlist = new LinkedList<>();
 		for (Token token:tokenStream.getTokens()){
 			int type = token.getType();
-			if(type==Newline||type==BlockComment||type==LineComment){
+			if(token.getChannel()==CLexer.HIDDEN){
 				continue;
 			}
 			if (token.getLine()==tempLineNum){

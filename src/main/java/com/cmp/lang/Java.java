@@ -40,10 +40,6 @@ public class Java implements Language {
 			"super", "switch", "synchronized", "this", "throw", "throws",
 			"transient", "try", "void", "volatile", "while" };
 
-	public static final int WS = 108;
-	public static final int COMMENT=109;
-	public static final int LINE_COMMENT=110;
-
 	/**
 	 * 全局唯一实例
 	 */
@@ -100,7 +96,7 @@ public class Java implements Language {
 		List<LineStruct> linetokenlist = new LinkedList<>();
 		for (Token token:tokenStream.getTokens()){
 			int type = token.getType();
-			if(type==WS||type==COMMENT||type==LINE_COMMENT){
+			if(token.getChannel()==JavaLexer.HIDDEN){
 				continue;
 			}
 			if (token.getLine()==tempLineNum){

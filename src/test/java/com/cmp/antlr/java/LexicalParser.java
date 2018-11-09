@@ -36,6 +36,7 @@ public class LexicalParser {
                         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
                         JavaParser parser = new JavaParser(tokenStream);
                         ParseTree tree = parser.compilationUnit();
+                        System.out.println("");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

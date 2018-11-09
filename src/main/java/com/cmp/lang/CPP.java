@@ -31,9 +31,6 @@ public class CPP implements Language {
 			"super", "switch", "synchronized", "this", "throw", "throws",
 			"transient", "try", "void", "volatile", "while" };
 
-	public static final int Newline=140;
-	public static final int BlockComment=141;
-	public static final int LineComment=142;
 	/**
 	 * 全局唯一实例
 	 */
@@ -90,7 +87,7 @@ public class CPP implements Language {
 		List<LineStruct> linetokenlist = new LinkedList<>();
 		for (Token token:tokenStream.getTokens()){
 			int type = token.getType();
-			if(type==Newline||type==BlockComment||type==LineComment){
+			if(token.getChannel()==CPP14Lexer.HIDDEN){
 				continue;
 			}
 			if (token.getLine()==tempLineNum){
