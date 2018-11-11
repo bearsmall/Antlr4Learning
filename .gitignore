@@ -72,3 +72,4 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+gen/com/xy/demo3/
