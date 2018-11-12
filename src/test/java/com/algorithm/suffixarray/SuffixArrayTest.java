@@ -11,7 +11,8 @@ public class SuffixArrayTest {
     public void testSuffixArray() {
         SuffixArray suffixArray = new SuffixArray();
         String s = "aabaaaab";
-        s = "aaaaabaaaaaa&aaaaabaaaaaa";
+        s = "Java编程思想";
+//        s = "abcdefghijklmnopqrst";
         int[] sa = suffixArray.generateSA(s);
         int[] rank = suffixArray.generateRank(sa);
         int[] height = suffixArray.generateH(s,sa);
@@ -19,7 +20,7 @@ public class SuffixArrayTest {
         System.out.println("rank : " + Arrays.toString(rank));
         System.out.println("heig : " + Arrays.toString(height));
         for (int i = 0; i < sa.length; i++)
-            System.out.print(s.substring(sa[i])+" ");
+            System.out.println(height[i]+":"+s.substring(sa[i]));
     }
 
 }

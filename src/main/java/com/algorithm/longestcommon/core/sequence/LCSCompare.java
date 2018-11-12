@@ -10,14 +10,21 @@ import java.util.List;
 
 public class LCSCompare {
 
+    /**
+     *
+     * @param list1 target地址
+     * @param list2 source地址
+     * @return
+     */
     public CmpResult getSimRecordMlcs(String list1, String list2){
         List<SimiBlock> retRecord = new LinkedList<>();
         if(list1==null || list2==null){
             return null;
         }
-        boolean reverFlag = false;
+        boolean revertFlag = false;
         int m = list1.length();
         int n = list2.length();
+        //确保 m < n，list1 < list2
         if (m>n){
             String lin = list2;
             list2 = list1;
@@ -25,7 +32,7 @@ public class LCSCompare {
             int temp = n;
             n = m;
             m = temp;
-            reverFlag = true;
+            revertFlag = true;
         }
         int[] c = new int[n+1];
         int[] sim = new int[m];//用于计算相似度
@@ -56,7 +63,7 @@ public class LCSCompare {
                     else if(c[n-j]!=0){//不相同且前一位不为0，相同字符串结束
                         if(c[n-j]>3){//相似串长度超过3才进行记录
                             SimiBlock simiBlock;
-                            if(reverFlag){
+                            if(revertFlag){
                                 simiBlock = new SimiBlock(i-c[n-j],i-1,n-j-c[n-j],n-j-1);//记录样本文件起止行号，行号从1开始
                             }else {
                                 simiBlock = new SimiBlock(n-j-c[n-j],n-j-1,i-c[n-j],i-1);//记录样本文件起止行号，行号从1开始
@@ -80,7 +87,7 @@ public class LCSCompare {
         for(int i=n;i>0;i--){//最后一次比对未记录的匹配字符串
             if(c[i]>3){//相似串长度超过2才进行记录
                 SimiBlock simiBlock;
-                if(reverFlag){
+                if(revertFlag){
                     simiBlock = new SimiBlock(m-c[i],m-1,i-c[i],i-1);//记录样本文件起止行号，行号从1开始
                 }else {
                     simiBlock = new SimiBlock(i-c[i],i-1,m-c[i],m-1);//记录样本文件起止行号，行号从1开始
@@ -92,7 +99,7 @@ public class LCSCompare {
         for(int i=0;i<m;i++)if(sim[i]!=0)ans++;//相似行数
         //System.out.println(m+"-----"+n+"---------"+ans);
         CmpResult cmpResult;
-        if(reverFlag) {
+        if(revertFlag) {
             cmpResult = new CmpResult(retRecord,m,n,ans,ans);
         }else {
             cmpResult = new CmpResult(retRecord,n,m,ans,ans);

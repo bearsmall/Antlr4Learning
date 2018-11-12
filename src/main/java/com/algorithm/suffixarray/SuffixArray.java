@@ -4,9 +4,10 @@ import java.util.Arrays;
 
 public class SuffixArray {
 
-    public static final int SIZE = 256;
+    public static int SIZE;
 
     public static int[] generateSA(String s) {
+        SIZE = calculateN(s.length());
         int[] wa = new int[SIZE];
         int[] wb = new int[SIZE];
         int[] wv = new int[SIZE];
@@ -34,10 +35,22 @@ public class SuffixArray {
             for(i=0;i<n;i++) ws[wv[i]]++;
             for(i=1;i<m;i++) ws[i]+=ws[i-1];
             for(i=n-1;i>=0;i--) sa[--ws[wv[i]]]=y[i];
-            for(t=x,x=y,y=t,p=1,x[sa[0]]=0,i=1;i<n;i++)
-                x[sa[i]]=compare(y,sa[i-1],sa[i],j)?p-1:p++;
+            for(t=x,x=y,y=t,p=1,x[sa[0]]=0,i=1;i<n;i++) {
+                if(sa[i-1]>526||sa[i]>526){
+                    System.out.println("");
+                }
+                x[sa[i]] = compare(y, sa[i - 1], sa[i], j) ? p - 1 : p++;
+            }
         }
         return sa;
+    }
+
+    private static int calculateN(int length) {
+        int n = 1;
+        while (n<length){
+            n = n*2;
+        }
+        return n+length>256?n+length:256;
     }
 
     private static boolean compare(int[] y, int a, int b, int l) {
