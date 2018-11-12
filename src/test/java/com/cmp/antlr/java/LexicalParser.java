@@ -1,5 +1,7 @@
 package com.cmp.antlr.java;
 
+import com.cmp.factory.ICodeFactory;
+import com.cmp.factory.JavaCodeFactory;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -15,6 +17,7 @@ import java.util.concurrent.*;
 public class LexicalParser {
 
     List<File> fileList = new LinkedList<File>();
+    public static ICodeFactory icodeFactory = JavaCodeFactory.getInstance();
 
     @Test
     public void test() throws IOException {
@@ -28,22 +31,27 @@ public class LexicalParser {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    FileInputStream is = null;
                     try {
-                        is = new FileInputStream(file);
-                        CharStream inputStream = CharStreams.fromStream(is);
-                        JavaLexer lexer = new JavaLexer(inputStream);
-                        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-                        JavaParser parser = new JavaParser(tokenStream);
-                        ParseTree tree = parser.compilationUnit();
-                        System.out.println("");
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        icodeFactory.generateDefectCodeFile(file);
                     }finally {
                         countDownLatch.countDown();
                     }
+//                    FileInputStream is = null;
+//                    try {
+//                        is = new FileInputStream(file);
+//                        CharStream inputStream = CharStreams.fromStream(is);
+//                        JavaLexer lexer = new JavaLexer(inputStream);
+//                        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+//                        JavaParser parser = new JavaParser(tokenStream);
+//                        ParseTree tree = parser.compilationUnit();
+//                        System.out.println("");
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }finally {
+//                        countDownLatch.countDown();
+//                    }
                 }
             });
         }

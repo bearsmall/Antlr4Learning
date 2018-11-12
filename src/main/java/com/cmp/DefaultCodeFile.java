@@ -14,7 +14,8 @@ public abstract class DefaultCodeFile{
     private List<LineStruct> textLine=new ArrayList<LineStruct>();//文本节点数组
     private List<LineStruct> tokenLine=new ArrayList<LineStruct>();//token节点数组
     private List<StoreNode> tree=new ArrayList<StoreNode>();//语法树节点数组
-    private List<String> line = new ArrayList<>();//源码文本字符串列表
+    private List<String> lines = new ArrayList<>();//源码文本字符串列表
+    private List<String> methods = new ArrayList<>();//函数列表
     protected Language lang = null; //本代码文件所用的编程语言
     protected String content = null; //代码内容
     protected String filePath = null; //文件路径
@@ -40,12 +41,20 @@ public abstract class DefaultCodeFile{
         this.tokenLine = tokenLine;
     }
 
-    public List<String> getLine() {
-        return line;
+    public List<String> getLines() {
+        return lines;
     }
 
-    public void setLine(List<String> line) {
-        this.line = line;
+    public void setLines(List<String> lines) {
+        this.lines = lines;
+    }
+
+    public List<String> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<String> methods) {
+        this.methods = methods;
     }
 
     public List<StoreNode> getTree() {
@@ -140,7 +149,7 @@ public abstract class DefaultCodeFile{
                 list.add(li);
             }
             lineNum = list.size();
-            line = list;
+            lines = list;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -189,7 +198,7 @@ public abstract class DefaultCodeFile{
         }
 
         lineNum = list.size();
-        line = list;
+        lines = list;
         code = clearIllegalCharacter(code);
         content = IOAgent.unifyLineSeparator(code);
 

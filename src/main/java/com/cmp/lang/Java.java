@@ -13,11 +13,13 @@ import com.cmp.antlr.java.JavaLexer;
 import com.cmp.antlr.java.JavaParser;
 import com.cmp.DefaultCodeFile;
 import com.cmp.LineStruct;
+import com.cmp.listenner.MethodExtractorListenner;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -115,6 +117,10 @@ public class Java implements Language {
 			}
 		}
 		defaultCodeFile.setTokenLine(linetokenlist);
+		ParseTreeWalker walker = new ParseTreeWalker();//新建一个标准的遍历器
+		MethodExtractorListenner extractor = new MethodExtractorListenner(defaultCodeFile);
+		walker.walk(extractor,tree);
+
 		try {
 			return true;
 		} catch (Exception e) {

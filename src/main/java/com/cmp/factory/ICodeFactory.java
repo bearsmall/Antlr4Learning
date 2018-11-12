@@ -8,6 +8,7 @@ import com.cmp.pretreat.PretreatDirector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -93,6 +94,10 @@ public abstract class ICodeFactory {
         }
         List<LineStruct> txtLine = defaultCodeFile.getTextLine();
         String text = defaultCodeFile.getContent();
+//        if (text != null) {
+//            String[] lines = text.split("\n", -1);//split方法第二个参数设为负才能保证行数不错
+//            defaultCodeFile.setLine(Arrays.asList(lines));
+//        }
         text = CommentReplace.getInstance().replace(text);
         if (txtLine != null) {
             txtLine.clear();

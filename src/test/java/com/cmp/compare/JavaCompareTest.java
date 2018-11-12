@@ -41,4 +41,19 @@ public class JavaCompareTest {
         String str = SimRecord.SimRecordtoString(compareResult2.getSimRecords());
         SimRecord[] simRecords = SimRecord.StringtoSimRecord(str);
     }
+
+    @Test
+    public void test2(){
+        CompareResult compareResult1 = mlcsd.compare(defaultCodeFile1.getTextLine(),defaultCodeFile2.getTextLine());
+        CompareResult compareResult2 = tokenmd.compare(defaultCodeFile1.getTokenLine(),defaultCodeFile2.getTokenLine());
+//        CompareResult compareResult3 = syntaxd.compareSyntax(defaultCodeFile1.getTree(),defaultCodeFile2.getTree());
+        System.out.println(compareResult1.getSimvalue());
+        System.out.println(compareResult1.getSimRecords());
+
+        System.out.println(compareResult2.getSimvalue());
+        System.out.println(compareResult2.getSimRecords());
+
+        String str = SimRecord.SimRecordtoString(compareResult2.getSimRecords());
+        SimRecord[] simRecords = SimRecord.StringtoSimRecord(str);
+    }
 }
