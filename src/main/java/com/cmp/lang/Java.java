@@ -118,7 +118,7 @@ public class Java implements Language {
 		}
 		defaultCodeFile.setTokenLine(linetokenlist);
 		ParseTreeWalker walker = new ParseTreeWalker();//新建一个标准的遍历器
-		MethodExtractorListenner extractor = new MethodExtractorListenner(defaultCodeFile);
+		MethodExtractorListenner extractor = new MethodExtractorListenner(defaultCodeFile,tokenStream.getTokens());
 		walker.walk(extractor,tree);
 
 		try {

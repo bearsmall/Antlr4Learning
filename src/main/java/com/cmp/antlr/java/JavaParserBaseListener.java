@@ -1,4 +1,4 @@
-// Generated from D:/Users/bearsmall/IdeaProjects/Antlr4Learning/src/main/java/com/antlr/java\JavaParser.g4 by ANTLR 4.7
+// Generated from D:/Users/bearsmall/IdeaProjects/Antlr4Learning/src/main/java/com/cmp/antlr/java\JavaParser.g4 by ANTLR 4.7
 package com.cmp.antlr.java;
 
 import org.antlr.v4.runtime.ParserRuleContext;

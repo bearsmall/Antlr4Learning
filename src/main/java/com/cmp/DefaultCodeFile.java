@@ -15,13 +15,13 @@ public abstract class DefaultCodeFile{
     private List<LineStruct> tokenLine=new ArrayList<LineStruct>();//token节点数组
     private List<StoreNode> tree=new ArrayList<StoreNode>();//语法树节点数组
     private List<String> lines = new ArrayList<>();//源码文本字符串列表
-    private List<String> fields = new ArrayList<>();//函数列表
-    private List<String> methods = new ArrayList<>();//函数列表
-    private List<String> constructor = new ArrayList<>();//构造函数列表
-    private List<String> staticBlocks = new ArrayList<>();//静态代码块列表
-    private List<String> classBlocks = new ArrayList<>();//静态代码块列表
-    private List<String> interfaceBlocks = new ArrayList<>();//静态代码块列表
-    private List<String> enumBlocks = new ArrayList<>();//静态代码块列表
+    private List<ModuleEntity> fields = new ArrayList<>();//函数列表
+    private List<ModuleEntity> methods = new ArrayList<>();//函数列表
+    private List<ModuleEntity> constructor = new ArrayList<>();//构造函数列表
+    private List<ModuleEntity> staticBlocks = new ArrayList<>();//静态代码块列表
+    private List<ModuleEntity> classBlocks = new ArrayList<>();//静态代码块列表
+    private List<ModuleEntity> interfaceBlocks = new ArrayList<>();//静态代码块列表
+    private List<ModuleEntity> enumBlocks = new ArrayList<>();//静态代码块列表
     protected Language lang = null; //本代码文件所用的编程语言
     protected String content = null; //代码内容
     protected String filePath = null; //文件路径
@@ -55,59 +55,59 @@ public abstract class DefaultCodeFile{
         this.lines = lines;
     }
 
-    public List<String> getFields() {
+    public List<ModuleEntity> getFields() {
         return fields;
     }
 
-    public void setFields(List<String> fields) {
+    public void setFields(List<ModuleEntity> fields) {
         this.fields = fields;
     }
 
-    public List<String> getMethods() {
+    public List<ModuleEntity> getMethods() {
         return methods;
     }
 
-    public void setMethods(List<String> methods) {
+    public void setMethods(List<ModuleEntity> methods) {
         this.methods = methods;
     }
 
-    public List<String> getConstructor() {
+    public List<ModuleEntity> getConstructor() {
         return constructor;
     }
 
-    public void setConstructor(List<String> constructor) {
+    public void setConstructor(List<ModuleEntity> constructor) {
         this.constructor = constructor;
     }
 
-    public List<String> getStaticBlocks() {
+    public List<ModuleEntity> getStaticBlocks() {
         return staticBlocks;
     }
 
-    public void setStaticBlocks(List<String> staticBlocks) {
+    public void setStaticBlocks(List<ModuleEntity> staticBlocks) {
         this.staticBlocks = staticBlocks;
     }
 
-    public List<String> getClassBlocks() {
+    public List<ModuleEntity> getClassBlocks() {
         return classBlocks;
     }
 
-    public void setClassBlocks(List<String> classBlocks) {
+    public void setClassBlocks(List<ModuleEntity> classBlocks) {
         this.classBlocks = classBlocks;
     }
 
-    public List<String> getInterfaceBlocks() {
+    public List<ModuleEntity> getInterfaceBlocks() {
         return interfaceBlocks;
     }
 
-    public void setInterfaceBlocks(List<String> interfaceBlocks) {
+    public void setInterfaceBlocks(List<ModuleEntity> interfaceBlocks) {
         this.interfaceBlocks = interfaceBlocks;
     }
 
-    public List<String> getEnumBlocks() {
+    public List<ModuleEntity> getEnumBlocks() {
         return enumBlocks;
     }
 
-    public void setEnumBlocks(List<String> enumBlocks) {
+    public void setEnumBlocks(List<ModuleEntity> enumBlocks) {
         this.enumBlocks = enumBlocks;
     }
 

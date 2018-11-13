@@ -1,10 +1,13 @@
-// Generated from D:/Users/bearsmall/IdeaProjects/Antlr4Learning/src/main/java/com/antlr/java\JavaLexer.g4 by ANTLR 4.7
+// Generated from D:/Users/bearsmall/IdeaProjects/Antlr4Learning/src/main/java/com/cmp/antlr/java\JavaLexer.g4 by ANTLR 4.7
 package com.cmp.antlr.java;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class JavaLexer extends Lexer {
@@ -481,7 +484,7 @@ public class JavaLexer extends Lexer {
 		"\u025e\u0261\u0267\u026e\u0272\u0275\u027d\u0281\u0284\u0289\u028d\u0290"+
 		"\u0293\u0298\u029b\u029d\u02a3\u02a6\u02aa\u02ae\u02b2\u02bd\u02c2\u02c9"+
 		"\u02cb\u0351\u035b\u0369\u0372\u0377\u037f\u0382\u0389\u0390\u0395\u0397"+
-		"\u039b\u03a3\u03a7\u03ab\u03b1\3\2\3\2";
+		"\u039b\u03a3\u03a7\u03ab\u03b1\3\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

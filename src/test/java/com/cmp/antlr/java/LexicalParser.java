@@ -1,5 +1,6 @@
 package com.cmp.antlr.java;
 
+import com.cmp.DefaultCodeFile;
 import com.cmp.factory.ICodeFactory;
 import com.cmp.factory.JavaCodeFactory;
 import org.antlr.v4.runtime.CharStream;
@@ -32,7 +33,7 @@ public class LexicalParser {
                 @Override
                 public void run() {
                     try {
-                        icodeFactory.generateDefectCodeFile(file);
+                        DefaultCodeFile defaultCodeFile = icodeFactory.generateDefectCodeFile(file);
                     }finally {
                         countDownLatch.countDown();
                     }
