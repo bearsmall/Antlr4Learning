@@ -15,7 +15,13 @@ public abstract class DefaultCodeFile{
     private List<LineStruct> tokenLine=new ArrayList<LineStruct>();//token节点数组
     private List<StoreNode> tree=new ArrayList<StoreNode>();//语法树节点数组
     private List<String> lines = new ArrayList<>();//源码文本字符串列表
+    private List<String> fields = new ArrayList<>();//函数列表
     private List<String> methods = new ArrayList<>();//函数列表
+    private List<String> constructor = new ArrayList<>();//构造函数列表
+    private List<String> staticBlocks = new ArrayList<>();//静态代码块列表
+    private List<String> classBlocks = new ArrayList<>();//静态代码块列表
+    private List<String> interfaceBlocks = new ArrayList<>();//静态代码块列表
+    private List<String> enumBlocks = new ArrayList<>();//静态代码块列表
     protected Language lang = null; //本代码文件所用的编程语言
     protected String content = null; //代码内容
     protected String filePath = null; //文件路径
@@ -49,12 +55,60 @@ public abstract class DefaultCodeFile{
         this.lines = lines;
     }
 
+    public List<String> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<String> fields) {
+        this.fields = fields;
+    }
+
     public List<String> getMethods() {
         return methods;
     }
 
     public void setMethods(List<String> methods) {
         this.methods = methods;
+    }
+
+    public List<String> getConstructor() {
+        return constructor;
+    }
+
+    public void setConstructor(List<String> constructor) {
+        this.constructor = constructor;
+    }
+
+    public List<String> getStaticBlocks() {
+        return staticBlocks;
+    }
+
+    public void setStaticBlocks(List<String> staticBlocks) {
+        this.staticBlocks = staticBlocks;
+    }
+
+    public List<String> getClassBlocks() {
+        return classBlocks;
+    }
+
+    public void setClassBlocks(List<String> classBlocks) {
+        this.classBlocks = classBlocks;
+    }
+
+    public List<String> getInterfaceBlocks() {
+        return interfaceBlocks;
+    }
+
+    public void setInterfaceBlocks(List<String> interfaceBlocks) {
+        this.interfaceBlocks = interfaceBlocks;
+    }
+
+    public List<String> getEnumBlocks() {
+        return enumBlocks;
+    }
+
+    public void setEnumBlocks(List<String> enumBlocks) {
+        this.enumBlocks = enumBlocks;
     }
 
     public List<StoreNode> getTree() {

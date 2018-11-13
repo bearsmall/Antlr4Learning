@@ -13,7 +13,7 @@ import com.cmp.antlr.java.JavaLexer;
 import com.cmp.antlr.java.JavaParser;
 import com.cmp.DefaultCodeFile;
 import com.cmp.LineStruct;
-import com.cmp.listenner.MethodExtractorListenner;
+import com.cmp.listener.MethodExtractorListenner;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
