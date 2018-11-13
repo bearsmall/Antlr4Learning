@@ -14,8 +14,8 @@ public class SuffixArrayCoreTest {
 
     public List<Token> createTokens1(){
         List<Token> tokenList = new ArrayList<>();
-        for(int i=1;i<10;i++){
-            CommonToken st1 = new CommonToken(i);
+        for(int i=1;i<8;i++){
+            CommonToken st1 = new CommonToken(1);
             st1.setLine(i);
             st1.setChannel(0);
             st1.setTokenIndex(i);
@@ -29,7 +29,7 @@ public class SuffixArrayCoreTest {
     public List<Token> createTokens2(){
         List<Token> tokenList = new ArrayList<>();
         for(int i=3;i<12;i++){
-            CommonToken st1 = new CommonToken(i);
+            CommonToken st1 = new CommonToken(2);
             st1.setLine(i);
             st1.setChannel(0);
             st1.setTokenIndex(i);
@@ -37,6 +37,8 @@ public class SuffixArrayCoreTest {
             st1.setStopIndex(i*10+5);
             tokenList.add(st1);
         }
+        CommonToken st1 = new CommonToken(1);
+        tokenList.add(st1);
         return tokenList;
     }
 

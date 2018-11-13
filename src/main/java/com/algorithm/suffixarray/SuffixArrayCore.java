@@ -10,10 +10,8 @@ import java.util.List;
 
 public class SuffixArrayCore {
 
-    public static int SIZE;
-
     public static int[] generateSA(List<Token> tokens) {
-        SIZE = calculateN(tokens.size());
+        int SIZE = calculateN(tokens.size());
         int[] wa = new int[SIZE];
         int[] wb = new int[SIZE];
         int[] wv = new int[SIZE];
@@ -44,7 +42,7 @@ public class SuffixArrayCore {
             for(i=n-1;i>=0;i--) sa[--ws[wv[i]]]=y[i];
             for(t=x,x=y,y=t,p=1,x[sa[0]]=0,i=1;i<n;i++) {
                 if(sa[i-1]>526||sa[i]>526){
-                    System.out.println("");
+//                    System.out.println("");
                 }
                 x[sa[i]] = compare(y, sa[i - 1], sa[i], j) ? p - 1 : p++;
             }
@@ -150,9 +148,9 @@ public class SuffixArrayCore {
         int[] sa = generateSA(tokenList);
         int[] rank = generateRank(sa);
         int[] height = generateH(tokenList,sa,tk1.size());
-        System.out.println("sa   : " + Arrays.toString(sa));
-        System.out.println("rank : " + Arrays.toString(rank));
-        System.out.println("heig : " + Arrays.toString(height));
+//        System.out.println("sa   : " + Arrays.toString(sa));
+//        System.out.println("rank : " + Arrays.toString(rank));
+//        System.out.println("heig : " + Arrays.toString(height));
 //        for (int i = 0; i < sa.length; i++) {
 //            System.out.println(height[i] + ":" + s.substring(sa[i]));
 //
@@ -161,18 +159,24 @@ public class SuffixArrayCore {
         suffixResult.setLength1(tk1.size());
         suffixResult.setLength2(tk2.size());
 
-        int s1 = sa[height[n]];
-        int s2 = sa[height[n]-1];
 
-        if(s1>s2){
-            int tmp = s1;
-            s1 = s2;
-            s2 = tmp;
+        if(height[n]==0){
+            suffixResult.setBeginIndex1(-1);
+            suffixResult.setBeginIndex2(-1);
+            suffixResult.setCommonLength(0);
+        }else {
+            int s1 = sa[height[n]];
+            int s2 = sa[height[n] - 1];
+
+            if (s1 > s2) {
+                int tmp = s1;
+                s1 = s2;
+                s2 = tmp;
+            }
+            suffixResult.setBeginIndex1(s1);
+            suffixResult.setBeginIndex2(s2 - tk2.size() - 1);
+            suffixResult.setCommonLength(height[0]);
         }
-        suffixResult.setBeginIndex1(s1);
-        suffixResult.setBeginIndex2(s2-tk2.size()-1);
-        suffixResult.setCommonLength(height[0]);
-
 //        for(int i=0;i<height[0];i++){
 //            System.out.println((i+s1)+"->"+tokenList.get(i+s1).getType());
 //        }

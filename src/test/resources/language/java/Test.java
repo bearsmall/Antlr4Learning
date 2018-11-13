@@ -1,13 +1,11 @@
 class Test{
-    private int name;
-    private int age;
-    public static final int sex;
-
-    static {
-        System.out.println("hello world");
-    }
-
-    public void show(){
-
+    public File getFile() throws IOException {
+        File file = this.file;
+        if (file != null) {
+            return file;
+        }
+        file = super.getFile();
+        this.file = file;
+        return file;
     }
 }

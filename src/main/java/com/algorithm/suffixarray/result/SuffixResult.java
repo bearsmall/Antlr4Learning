@@ -63,7 +63,7 @@ public class SuffixResult {
                 ", length1=" + length1 +
                 ", length2=" + length2 +
                 ", commonLength=" + commonLength +
-                ", simiValue=" + simiValue +
+                ", simiValue=" + getSimiValue() +
                 '}';
     }
 }
