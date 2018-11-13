@@ -68,19 +68,30 @@ public class SuffixArray {
     public static int[] generateH(String s, int[] sa) {
         char[] ch = s.toCharArray();
         int n = sa.length;
-        int[] h = new int[n];
+        int[] h = new int[n+1];
         int[] rank = generateRank(sa);
 
+        int max = 0;
+        int maxIndex = 0;
         Arrays.fill(h, 0);
         int i,j,k=0;
         for(i=0;i<n;h[rank[i++]]=k) {
             if(rank[i]==0){
+                if(k>max){
+                    max = k;
+                    maxIndex=rank[i+1];
+                }
                 continue;
             }
             for (k = (k != 0 ? k-1 : 0), j = sa[rank[i]-1]; (i+k<n)&&(j+k<n)&&ch[i + k] == ch[j + k]; k++) {
             }
+            if(k>max){
+                max = k;
+                maxIndex=rank[i];
+            }
         }
-        h[0]=0;
+        h[0]=max;
+        h[n]=maxIndex;
         return h;
     }
 

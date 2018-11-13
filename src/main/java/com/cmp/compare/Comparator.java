@@ -243,6 +243,10 @@ public abstract class Comparator {
 
     }
 
+    public List<SimRecord> getSimRecord(List<LineStruct> list1,List<LineStruct> list2){
+
+        return null;
+    }
     /**
      * 强制子类重写toString方法
      */
