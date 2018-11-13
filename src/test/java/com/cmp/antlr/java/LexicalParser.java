@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class LexicalParser {
 
@@ -28,12 +29,14 @@ public class LexicalParser {
         ExecutorService executorService = new ThreadPoolExecutor(4,8,60, TimeUnit.SECONDS,new LinkedBlockingDeque<>());
         int size = fileList.size();
         final CountDownLatch countDownLatch = new CountDownLatch(size);
+        AtomicInteger atomicInteger = new AtomicInteger(0);
         for (File file:fileList){
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         DefaultCodeFile defaultCodeFile = icodeFactory.generateDefectCodeFile(file);
+                        atomicInteger.addAndGet((int) file.length());
                     }finally {
                         countDownLatch.countDown();
                     }
@@ -63,6 +66,7 @@ public class LexicalParser {
         }
         Long end = System.currentTimeMillis();
         System.out.println(end-start);
+        System.out.println("Integer:"+atomicInteger);
     }
 
 

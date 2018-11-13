@@ -18,7 +18,7 @@ public class JavaCompareTest {
 
     static {
         icodeFactory = JavaCodeFactory.getInstance();
-        String src1 = JavaCompareTest.class.getClassLoader().getResource("language/java/Demo1.java").getPath();
+        String src1 = JavaCompareTest.class.getClassLoader().getResource("language/java/JavaParserTest.java").getPath();
         String src2 = JavaCompareTest.class.getClassLoader().getResource("language/java/Demo2.java").getPath();
         Long start = System.currentTimeMillis();
         defaultCodeFile1 = icodeFactory.generateDefectCodeFile(new File(src1));
