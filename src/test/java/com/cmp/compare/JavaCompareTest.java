@@ -1,11 +1,17 @@
 package com.cmp.compare;
 
+import com.algorithm.suffixarray.SuffixArrayCore;
 import com.cmp.DefaultCodeFile;
+import com.cmp.ModuleEntity;
 import com.cmp.factory.ICodeFactory;
 import com.cmp.factory.JavaCodeFactory;
+import org.antlr.v4.runtime.Token;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class JavaCompareTest {
 
@@ -44,16 +50,39 @@ public class JavaCompareTest {
 
     @Test
     public void test2(){
-        CompareResult compareResult1 = mlcsd.compare(defaultCodeFile1.getTextLine(),defaultCodeFile2.getTextLine());
-        CompareResult compareResult2 = tokenmd.compare(defaultCodeFile1.getTokenLine(),defaultCodeFile2.getTokenLine());
-//        CompareResult compareResult3 = syntaxd.compareSyntax(defaultCodeFile1.getTree(),defaultCodeFile2.getTree());
-        System.out.println(compareResult1.getSimvalue());
-        System.out.println(compareResult1.getSimRecords());
+        ModuleEntity moduleEntity1 = defaultCodeFile1.getClassBlocks().get(0);
+        ModuleEntity moduleEntity2 = defaultCodeFile2.getClassBlocks().get(0);
+        List<Token> tokens1 = moduleEntity1.getTokenList();
+        List<Token> tokens2 = moduleEntity2.getTokenList();
+        List<Token> tokenList = new ArrayList<>();
+        tokenList.addAll(tokens1);
+        tokenList.addAll(tokens2);
 
-        System.out.println(compareResult2.getSimvalue());
-        System.out.println(compareResult2.getSimRecords());
+        SuffixArrayCore suffixArray = new SuffixArrayCore();
+        int n = tokenList.size();
+//        s = "abcdefghijklmnopqrst";
+        int[] sa = suffixArray.generateSA(tokenList);
+        int[] rank = suffixArray.generateRank(sa);
+        int[] height = suffixArray.generateH(tokenList,sa,tokens1.size());
+        System.out.println("sa   : " + Arrays.toString(sa));
+        System.out.println("rank : " + Arrays.toString(rank));
+        System.out.println("heig : " + Arrays.toString(height));
+//        for (int i = 0; i < sa.length; i++) {
+//            System.out.println(height[i] + ":" + s.substring(sa[i]));
+//
+//        }
 
-        String str = SimRecord.SimRecordtoString(compareResult2.getSimRecords());
-        SimRecord[] simRecords = SimRecord.StringtoSimRecord(str);
+        System.out.println("-----------------------");
+        int s1 = sa[height[n]];
+        int s2 = sa[height[n]-1];
+//        for(int i=0;i<height[0];i++){
+//            System.out.println((i+s1)+"->"+tokenList.get(i+s1).getType());
+//        }
+//        System.out.println("-----------------------");
+//        for(int i=0;i<height[0];i++){
+//            System.out.println((i+s2)+"->"+tokenList.get(i+s2).getType());
+//        }
+        System.out.println("-----------------------");
+        System.out.println(height[0]*2.0/n);
     }
 }

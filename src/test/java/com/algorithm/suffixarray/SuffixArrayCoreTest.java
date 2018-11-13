@@ -1,6 +1,8 @@
 package com.algorithm.suffixarray;
 
-import com.cmp.SingleToken;
+import com.algorithm.suffixarray.result.SuffixResult;
+import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,35 +12,30 @@ import java.util.List;
 
 public class SuffixArrayCoreTest {
 
-    public List<SingleToken> createTokens(){
-        List<SingleToken> tokenList = new ArrayList<>();
+    public List<Token> createTokens1(){
+        List<Token> tokenList = new ArrayList<>();
         for(int i=1;i<10;i++){
-            SingleToken st1 = new SingleToken();
-            st1.setType(i);
+            CommonToken st1 = new CommonToken(i);
             st1.setLine(i);
             st1.setChannel(0);
-            st1.setIndex(i);
-            st1.setStart(i*10);
-            st1.setStart(i*10+5);
+            st1.setTokenIndex(i);
+            st1.setStartIndex(i*10);
+            st1.setStopIndex(i*10+5);
             tokenList.add(st1);
         }
-        SingleToken st = new SingleToken();
-        st.setType(0);
-        st.setLine(0);
-        st.setChannel(0);
-        st.setIndex(0);
-        st.setStart(0*10);
-        st.setStart(0*10+5);
-        tokenList.add(st);
-        for(int i=1;i<8;i++){
-            SingleToken st2 = new SingleToken();
-            st2.setType(i);
-            st2.setLine(i);
-            st2.setChannel(0);
-            st2.setIndex(i);
-            st2.setStart(i*10);
-            st2.setStart(i*10+5);
-            tokenList.add(st2);
+        return tokenList;
+    }
+
+    public List<Token> createTokens2(){
+        List<Token> tokenList = new ArrayList<>();
+        for(int i=3;i<12;i++){
+            CommonToken st1 = new CommonToken(i);
+            st1.setLine(i);
+            st1.setChannel(0);
+            st1.setTokenIndex(i);
+            st1.setStartIndex(i*10);
+            st1.setStopIndex(i*10+5);
+            tokenList.add(st1);
         }
         return tokenList;
     }
@@ -46,12 +43,14 @@ public class SuffixArrayCoreTest {
     @Test
     public void testSuffixArray() {
         SuffixArrayCore suffixArray = new SuffixArrayCore();
-        List<SingleToken> tokenList = createTokens();
+        List<Token> tokenList = createTokens1();
+        tokenList.add(new CommonToken(0));
+        tokenList.addAll(createTokens2());
         int n = tokenList.size();
 //        s = "abcdefghijklmnopqrst";
         int[] sa = suffixArray.generateSA(tokenList);
         int[] rank = suffixArray.generateRank(sa);
-        int[] height = suffixArray.generateH(tokenList,sa);
+        int[] height = suffixArray.generateH(tokenList,sa,9);
         System.out.println("sa   : " + Arrays.toString(sa));
         System.out.println("rank : " + Arrays.toString(rank));
         System.out.println("heig : " + Arrays.toString(height));
@@ -71,5 +70,14 @@ public class SuffixArrayCoreTest {
             System.out.println((i+s2)+"->"+tokenList.get(i+s2).getType());
         }
         System.out.println("-----------------------");
+    }
+
+    @Test
+    public void testSuffixArray2() {
+        SuffixArrayCore suffixArray = new SuffixArrayCore();
+        List<Token> tokenList1 = createTokens1();
+        List<Token> tokenList2 = createTokens2();
+        SuffixResult suffixResult = suffixArray.compare(tokenList1,tokenList2);
+        System.out.println(suffixResult);
     }
 }

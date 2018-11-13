@@ -17,6 +17,7 @@ public class Demo1{
 		System.out.println(b);
 	}
 
+    public static void next(){}
 	/**
 	 * 未使用的方法
 	 */
@@ -32,7 +33,6 @@ public class Demo1{
 
 	}
 }
-
 interface IHello{
 	public void hello();
 	public void show();
