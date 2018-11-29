@@ -33,7 +33,6 @@ public class LexicalParser {
     CompareDirector syntaxd = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.SYNTAX_COMPARE);     //比对指示器3（语法树比对）
 
     private static DefaultCodeFile defaultCodeFile1;
-
     static {
         String src1 = JavaCompareTest.class.getClassLoader().getResource("language/java/JavaParserTest.java").getPath();
         defaultCodeFile1 = icodeFactory.generateDefectCodeFile(new File(src1));
