@@ -182,6 +182,7 @@ public class LexicalParser {
                         if(compareResult!=null&&compareResult.getSimvalue()>0.8){
                             System.out.println(file.getAbsolutePath());
                         }
+                        defaultCodeFile2 = null;
                         atomicInteger.addAndGet((int) file.length());
                     }finally {
                         countDownLatch.countDown();

@@ -29,6 +29,7 @@ buildNumber.properties
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea
 
 # Gradle
 .idea/**/gradle.xml
@@ -73,3 +74,14 @@ fabric.properties
 .idea/httpRequests
 
 gen/com/xy/demo3/
+gen/
+src/test/java/com/cmp/antlr/css/
+src/test/java/com/cmp/antlr/go/
+src/test/java/com/cmp/antlr/html/
+src/test/java/com/cmp/antlr/javascript/
+src/test/resources/language/css/
+src/test/resources/language/go/
+src/test/resources/language/html/
+src/test/resources/language/java8/
+src/test/resources/language/java9/
+src/test/resources/language/javascript/
