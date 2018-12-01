@@ -80,7 +80,7 @@ public final class IOAgent {
             return null;
         }
         String linesep = System.getProperty("line.separator");
-        if (!linesep.equals("\n")) {
+        if (!"\n".equals(linesep)) {
             content = content.replaceAll("\n", linesep);
         }
         return content;

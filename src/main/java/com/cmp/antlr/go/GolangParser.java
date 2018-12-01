@@ -218,15 +218,15 @@ public class GolangParser extends Parser {
 	        int leftParams = 1;
 	        int rightParams = 0;
 	        String value;
-	        if (stream.LT(tokenOffset).getText().equals("(")) {
+	        if ("(".equals(stream.LT(tokenOffset).getText())) {
 	            // Scan past parameters
 	            while (leftParams != rightParams) {
 	                tokenOffset++;
 	                value = stream.LT(tokenOffset).getText();
-	                if (value.equals("(")) {
+	                if ("(".equals(value)) {
 	                    leftParams++;
 	                }
-	                else if (value.equals(")")) {
+	                else if (")".equals(value)) {
 	                    rightParams++;
 	                }
 	            }
@@ -6539,7 +6539,7 @@ public class GolangParser extends Parser {
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(919);
-				if (!(_input.LT(1).getText().equals("}") )) throw new FailedPredicateException(this, "_input.LT(1).getText().equals(\"}\") ");
+				if (!("}".equals(_input.LT(1).getText()))) throw new FailedPredicateException(this, "_input.LT(1).getText().equals(\"}\") ");
 				}
 				break;
 			}
@@ -6620,7 +6620,7 @@ public class GolangParser extends Parser {
 		case 9:
 			return lineTerminatorAhead();
 		case 10:
-			return _input.LT(1).getText().equals("}") ;
+			return "}".equals(_input.LT(1).getText());
 		}
 		return true;
 	}

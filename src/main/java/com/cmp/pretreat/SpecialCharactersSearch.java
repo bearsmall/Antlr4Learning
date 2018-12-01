@@ -123,7 +123,7 @@ public class SpecialCharactersSearch {
 
 		int len = blocks.size();
 
-		if (remain == null || remain.trim().equals("")) {
+		if (remain == null || "".equals(remain.trim())) {
 			String[] aBlocks = new String[len];
 			for (int i = 0; i < len; i++) {
 				aBlocks[i] = blocks.get(i);

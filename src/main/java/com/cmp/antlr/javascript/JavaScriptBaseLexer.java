@@ -82,7 +82,7 @@ public abstract class JavaScriptBaseLexer extends Lexer
         if (lastToken == null || lastToken.getType() == JavaScriptLexer.OpenBrace)
         {
             String text = getText();
-            if (text.equals("\"use strict\"") || text.equals("'use strict'"))
+            if ("\"use strict\"".equals(text) || "'use strict'".equals(text))
             {
                 if (scopeStrictModes.size() > 0)
                     scopeStrictModes.pop();

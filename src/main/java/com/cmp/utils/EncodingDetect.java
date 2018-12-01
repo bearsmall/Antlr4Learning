@@ -123,7 +123,7 @@ class BytesEncodingDetect extends Encoding {
 	        } catch (Exception e) {
 	          System.err.println("Bad URL " + e.toString());
 	        }
-	      } else if (argc[i].equals("-d")) {
+	      } else if ("-d".equals(argc[i])) {
 	        sinodetector.debug = true;
 	        continue;
 	      } else {

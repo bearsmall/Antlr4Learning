@@ -106,7 +106,7 @@ public abstract class ICodeFactory {
             String[] lines = text.split("\n", -1);//split方法第二个参数设为负才能保证行数不错
             for (int i = 0; i < lines.length; i++) {
                 lines[i] = lines[i].trim();
-                if ((!lines[i].equals("")) && (!lines[i].equals("\t")) && (!lines[i].equals("\t\t"))) {
+                if ((!"".equals(lines[i])) && (!"\t".equals(lines[i])) && (!"\t\t".equals(lines[i]))) {
                     LineStruct templine = new LineStruct(i + 1, lines[i].hashCode());
                     txtLine.add(templine);
                 }
