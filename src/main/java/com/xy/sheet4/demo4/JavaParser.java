@@ -1,137 +1,129 @@
 // Generated from D:/Users/bearsmalll/IdeaProjects/Antlr4Learning/src/main/resources/test00\Java.g4 by ANTLR 4.7
-package com.xy.demo00;
-
-import com.xy.sheet4.demo4.JavaListener;
-import com.xy.sheet4.demo4.JavaVisitor;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+package com.xy.sheet4.demo4;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
 
 import java.util.List;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class JavaParserTest extends Parser {
+public class JavaParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.7", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9,
-		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17,
-		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24,
-		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31,
-		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38,
-		T__38=39, T__39=40, T__40=41, T__41=42, T__42=43, T__43=44, T__44=45,
-		T__45=46, T__46=47, T__47=48, T__48=49, T__49=50, T__50=51, T__51=52,
-		T__52=53, T__53=54, T__54=55, T__55=56, T__56=57, T__57=58, T__58=59,
-		T__59=60, T__60=61, T__61=62, T__62=63, T__63=64, T__64=65, T__65=66,
-		T__66=67, T__67=68, T__68=69, T__69=70, T__70=71, T__71=72, T__72=73,
-		T__73=74, T__74=75, T__75=76, T__76=77, T__77=78, T__78=79, T__79=80,
-		T__80=81, T__81=82, T__82=83, T__83=84, T__84=85, T__85=86, T__86=87,
-		T__87=88, T__88=89, HexLiteral=90, DecimalLiteral=91, OctalLiteral=92,
-		FloatingPointLiteral=93, CharacterLiteral=94, StringLiteral=95, ENUM=96,
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
+		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
+		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
+		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
+		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38, 
+		T__38=39, T__39=40, T__40=41, T__41=42, T__42=43, T__43=44, T__44=45, 
+		T__45=46, T__46=47, T__47=48, T__48=49, T__49=50, T__50=51, T__51=52, 
+		T__52=53, T__53=54, T__54=55, T__55=56, T__56=57, T__57=58, T__58=59, 
+		T__59=60, T__60=61, T__61=62, T__62=63, T__63=64, T__64=65, T__65=66, 
+		T__66=67, T__67=68, T__68=69, T__69=70, T__70=71, T__71=72, T__72=73, 
+		T__73=74, T__74=75, T__75=76, T__76=77, T__77=78, T__78=79, T__79=80, 
+		T__80=81, T__81=82, T__82=83, T__83=84, T__84=85, T__85=86, T__86=87, 
+		T__87=88, T__88=89, HexLiteral=90, DecimalLiteral=91, OctalLiteral=92, 
+		FloatingPointLiteral=93, CharacterLiteral=94, StringLiteral=95, ENUM=96, 
 		ASSERT=97, Identifier=98, COMMENT=99, WS=100, LINE_COMMENT=101;
 	public static final int
-		RULE_compilationUnit = 0, RULE_packageDeclaration = 1, RULE_importDeclaration = 2,
-		RULE_typeDeclaration = 3, RULE_classDeclaration = 4, RULE_enumDeclaration = 5,
-		RULE_interfaceDeclaration = 6, RULE_classOrInterfaceModifier = 7, RULE_modifiers = 8,
-		RULE_typeParameters = 9, RULE_typeParameter = 10, RULE_typeBound = 11,
-		RULE_enumBody = 12, RULE_enumConstants = 13, RULE_enumConstant = 14, RULE_enumBodyDeclarations = 15,
-		RULE_normalInterfaceDeclaration = 16, RULE_typeList = 17, RULE_classBody = 18,
-		RULE_interfaceBody = 19, RULE_classBodyDeclaration = 20, RULE_member = 21,
-		RULE_methodDeclaration = 22, RULE_methodDeclarationRest = 23, RULE_genericMethodDeclaration = 24,
-		RULE_fieldDeclaration = 25, RULE_constructorDeclaration = 26, RULE_interfaceBodyDeclaration = 27,
-		RULE_interfaceMemberDecl = 28, RULE_interfaceMethodOrFieldDecl = 29, RULE_interfaceMethodOrFieldRest = 30,
-		RULE_voidMethodDeclaratorRest = 31, RULE_interfaceMethodDeclaratorRest = 32,
-		RULE_interfaceGenericMethodDecl = 33, RULE_voidInterfaceMethodDeclaratorRest = 34,
-		RULE_constantDeclarator = 35, RULE_variableDeclarators = 36, RULE_variableDeclarator = 37,
-		RULE_constantDeclaratorsRest = 38, RULE_constantDeclaratorRest = 39, RULE_variableDeclaratorId = 40,
-		RULE_variableInitializer = 41, RULE_arrayInitializer = 42, RULE_modifier = 43,
-		RULE_packageOrTypeName = 44, RULE_enumConstantName = 45, RULE_typeName = 46,
-		RULE_type = 47, RULE_classOrInterfaceType = 48, RULE_primitiveType = 49,
-		RULE_variableModifier = 50, RULE_typeArguments = 51, RULE_typeArgument = 52,
-		RULE_qualifiedNameList = 53, RULE_formalParameters = 54, RULE_formalParameterDecls = 55,
-		RULE_formalParameterDeclsRest = 56, RULE_methodBody = 57, RULE_constructorBody = 58,
-		RULE_explicitConstructorInvocation = 59, RULE_qualifiedName = 60, RULE_literal = 61,
-		RULE_integerLiteral = 62, RULE_booleanLiteral = 63, RULE_annotations = 64,
-		RULE_annotation = 65, RULE_annotationName = 66, RULE_elementValuePairs = 67,
-		RULE_elementValuePair = 68, RULE_elementValue = 69, RULE_elementValueArrayInitializer = 70,
-		RULE_annotationTypeDeclaration = 71, RULE_annotationTypeBody = 72, RULE_annotationTypeElementDeclaration = 73,
-		RULE_annotationTypeElementRest = 74, RULE_annotationMethodOrConstantRest = 75,
-		RULE_annotationMethodRest = 76, RULE_annotationConstantRest = 77, RULE_defaultValue = 78,
-		RULE_block = 79, RULE_blockStatement = 80, RULE_localVariableDeclarationStatement = 81,
-		RULE_localVariableDeclaration = 82, RULE_variableModifiers = 83, RULE_statement = 84,
-		RULE_catches = 85, RULE_catchClause = 86, RULE_formalParameter = 87, RULE_switchBlock = 88,
-		RULE_switchBlockStatementGroup = 89, RULE_switchLabel = 90, RULE_forControl = 91,
-		RULE_forInit = 92, RULE_enhancedForControl = 93, RULE_forUpdate = 94,
-		RULE_parExpression = 95, RULE_expressionList = 96, RULE_statementExpression = 97,
-		RULE_constantExpression = 98, RULE_expression = 99, RULE_primary = 100,
-		RULE_creator = 101, RULE_createdName = 102, RULE_innerCreator = 103, RULE_explicitGenericInvocation = 104,
-		RULE_arrayCreatorRest = 105, RULE_classCreatorRest = 106, RULE_nonWildcardTypeArguments = 107,
+		RULE_compilationUnit = 0, RULE_packageDeclaration = 1, RULE_importDeclaration = 2, 
+		RULE_typeDeclaration = 3, RULE_classDeclaration = 4, RULE_enumDeclaration = 5, 
+		RULE_interfaceDeclaration = 6, RULE_classOrInterfaceModifier = 7, RULE_modifiers = 8, 
+		RULE_typeParameters = 9, RULE_typeParameter = 10, RULE_typeBound = 11, 
+		RULE_enumBody = 12, RULE_enumConstants = 13, RULE_enumConstant = 14, RULE_enumBodyDeclarations = 15, 
+		RULE_normalInterfaceDeclaration = 16, RULE_typeList = 17, RULE_classBody = 18, 
+		RULE_interfaceBody = 19, RULE_classBodyDeclaration = 20, RULE_member = 21, 
+		RULE_methodDeclaration = 22, RULE_methodDeclarationRest = 23, RULE_genericMethodDeclaration = 24, 
+		RULE_fieldDeclaration = 25, RULE_constructorDeclaration = 26, RULE_interfaceBodyDeclaration = 27, 
+		RULE_interfaceMemberDecl = 28, RULE_interfaceMethodOrFieldDecl = 29, RULE_interfaceMethodOrFieldRest = 30, 
+		RULE_voidMethodDeclaratorRest = 31, RULE_interfaceMethodDeclaratorRest = 32, 
+		RULE_interfaceGenericMethodDecl = 33, RULE_voidInterfaceMethodDeclaratorRest = 34, 
+		RULE_constantDeclarator = 35, RULE_variableDeclarators = 36, RULE_variableDeclarator = 37, 
+		RULE_constantDeclaratorsRest = 38, RULE_constantDeclaratorRest = 39, RULE_variableDeclaratorId = 40, 
+		RULE_variableInitializer = 41, RULE_arrayInitializer = 42, RULE_modifier = 43, 
+		RULE_packageOrTypeName = 44, RULE_enumConstantName = 45, RULE_typeName = 46, 
+		RULE_type = 47, RULE_classOrInterfaceType = 48, RULE_primitiveType = 49, 
+		RULE_variableModifier = 50, RULE_typeArguments = 51, RULE_typeArgument = 52, 
+		RULE_qualifiedNameList = 53, RULE_formalParameters = 54, RULE_formalParameterDecls = 55, 
+		RULE_formalParameterDeclsRest = 56, RULE_methodBody = 57, RULE_constructorBody = 58, 
+		RULE_explicitConstructorInvocation = 59, RULE_qualifiedName = 60, RULE_literal = 61, 
+		RULE_integerLiteral = 62, RULE_booleanLiteral = 63, RULE_annotations = 64, 
+		RULE_annotation = 65, RULE_annotationName = 66, RULE_elementValuePairs = 67, 
+		RULE_elementValuePair = 68, RULE_elementValue = 69, RULE_elementValueArrayInitializer = 70, 
+		RULE_annotationTypeDeclaration = 71, RULE_annotationTypeBody = 72, RULE_annotationTypeElementDeclaration = 73, 
+		RULE_annotationTypeElementRest = 74, RULE_annotationMethodOrConstantRest = 75, 
+		RULE_annotationMethodRest = 76, RULE_annotationConstantRest = 77, RULE_defaultValue = 78, 
+		RULE_block = 79, RULE_blockStatement = 80, RULE_localVariableDeclarationStatement = 81, 
+		RULE_localVariableDeclaration = 82, RULE_variableModifiers = 83, RULE_statement = 84, 
+		RULE_catches = 85, RULE_catchClause = 86, RULE_formalParameter = 87, RULE_switchBlock = 88, 
+		RULE_switchBlockStatementGroup = 89, RULE_switchLabel = 90, RULE_forControl = 91, 
+		RULE_forInit = 92, RULE_enhancedForControl = 93, RULE_forUpdate = 94, 
+		RULE_parExpression = 95, RULE_expressionList = 96, RULE_statementExpression = 97, 
+		RULE_constantExpression = 98, RULE_expression = 99, RULE_primary = 100, 
+		RULE_creator = 101, RULE_createdName = 102, RULE_innerCreator = 103, RULE_explicitGenericInvocation = 104, 
+		RULE_arrayCreatorRest = 105, RULE_classCreatorRest = 106, RULE_nonWildcardTypeArguments = 107, 
 		RULE_arguments = 108;
 	public static final String[] ruleNames = {
-		"compilationUnit", "packageDeclaration", "importDeclaration", "typeDeclaration",
-		"classDeclaration", "enumDeclaration", "interfaceDeclaration", "classOrInterfaceModifier",
-		"modifiers", "typeParameters", "typeParameter", "typeBound", "enumBody",
-		"enumConstants", "enumConstant", "enumBodyDeclarations", "normalInterfaceDeclaration",
-		"typeList", "classBody", "interfaceBody", "classBodyDeclaration", "member",
-		"methodDeclaration", "methodDeclarationRest", "genericMethodDeclaration",
-		"fieldDeclaration", "constructorDeclaration", "interfaceBodyDeclaration",
-		"interfaceMemberDecl", "interfaceMethodOrFieldDecl", "interfaceMethodOrFieldRest",
-		"voidMethodDeclaratorRest", "interfaceMethodDeclaratorRest", "interfaceGenericMethodDecl",
-		"voidInterfaceMethodDeclaratorRest", "constantDeclarator", "variableDeclarators",
-		"variableDeclarator", "constantDeclaratorsRest", "constantDeclaratorRest",
-		"variableDeclaratorId", "variableInitializer", "arrayInitializer", "modifier",
-		"packageOrTypeName", "enumConstantName", "typeName", "type", "classOrInterfaceType",
-		"primitiveType", "variableModifier", "typeArguments", "typeArgument",
-		"qualifiedNameList", "formalParameters", "formalParameterDecls", "formalParameterDeclsRest",
-		"methodBody", "constructorBody", "explicitConstructorInvocation", "qualifiedName",
-		"literal", "integerLiteral", "booleanLiteral", "annotations", "annotation",
-		"annotationName", "elementValuePairs", "elementValuePair", "elementValue",
-		"elementValueArrayInitializer", "annotationTypeDeclaration", "annotationTypeBody",
-		"annotationTypeElementDeclaration", "annotationTypeElementRest", "annotationMethodOrConstantRest",
-		"annotationMethodRest", "annotationConstantRest", "defaultValue", "block",
-		"blockStatement", "localVariableDeclarationStatement", "localVariableDeclaration",
-		"variableModifiers", "statement", "catches", "catchClause", "formalParameter",
-		"switchBlock", "switchBlockStatementGroup", "switchLabel", "forControl",
-		"forInit", "enhancedForControl", "forUpdate", "parExpression", "expressionList",
-		"statementExpression", "constantExpression", "expression", "primary",
-		"creator", "createdName", "innerCreator", "explicitGenericInvocation",
+		"compilationUnit", "packageDeclaration", "importDeclaration", "typeDeclaration", 
+		"classDeclaration", "enumDeclaration", "interfaceDeclaration", "classOrInterfaceModifier", 
+		"modifiers", "typeParameters", "typeParameter", "typeBound", "enumBody", 
+		"enumConstants", "enumConstant", "enumBodyDeclarations", "normalInterfaceDeclaration", 
+		"typeList", "classBody", "interfaceBody", "classBodyDeclaration", "member", 
+		"methodDeclaration", "methodDeclarationRest", "genericMethodDeclaration", 
+		"fieldDeclaration", "constructorDeclaration", "interfaceBodyDeclaration", 
+		"interfaceMemberDecl", "interfaceMethodOrFieldDecl", "interfaceMethodOrFieldRest", 
+		"voidMethodDeclaratorRest", "interfaceMethodDeclaratorRest", "interfaceGenericMethodDecl", 
+		"voidInterfaceMethodDeclaratorRest", "constantDeclarator", "variableDeclarators", 
+		"variableDeclarator", "constantDeclaratorsRest", "constantDeclaratorRest", 
+		"variableDeclaratorId", "variableInitializer", "arrayInitializer", "modifier", 
+		"packageOrTypeName", "enumConstantName", "typeName", "type", "classOrInterfaceType", 
+		"primitiveType", "variableModifier", "typeArguments", "typeArgument", 
+		"qualifiedNameList", "formalParameters", "formalParameterDecls", "formalParameterDeclsRest", 
+		"methodBody", "constructorBody", "explicitConstructorInvocation", "qualifiedName", 
+		"literal", "integerLiteral", "booleanLiteral", "annotations", "annotation", 
+		"annotationName", "elementValuePairs", "elementValuePair", "elementValue", 
+		"elementValueArrayInitializer", "annotationTypeDeclaration", "annotationTypeBody", 
+		"annotationTypeElementDeclaration", "annotationTypeElementRest", "annotationMethodOrConstantRest", 
+		"annotationMethodRest", "annotationConstantRest", "defaultValue", "block", 
+		"blockStatement", "localVariableDeclarationStatement", "localVariableDeclaration", 
+		"variableModifiers", "statement", "catches", "catchClause", "formalParameter", 
+		"switchBlock", "switchBlockStatementGroup", "switchLabel", "forControl", 
+		"forInit", "enhancedForControl", "forUpdate", "parExpression", "expressionList", 
+		"statementExpression", "constantExpression", "expression", "primary", 
+		"creator", "createdName", "innerCreator", "explicitGenericInvocation", 
 		"arrayCreatorRest", "classCreatorRest", "nonWildcardTypeArguments", "arguments"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'package'", "';'", "'import'", "'static'", "'.'", "'*'", "'class'",
-		"'extends'", "'implements'", "'public'", "'protected'", "'private'", "'abstract'",
-		"'final'", "'strictfp'", "'<'", "','", "'>'", "'&'", "'{'", "'}'", "'interface'",
-		"'['", "']'", "'void'", "'throws'", "'='", "'native'", "'synchronized'",
-		"'transient'", "'volatile'", "'boolean'", "'char'", "'byte'", "'short'",
-		"'int'", "'long'", "'float'", "'double'", "'?'", "'super'", "'('", "')'",
-		"'...'", "'this'", "'null'", "'true'", "'false'", "'@'", "'default'",
-		"':'", "'if'", "'else'", "'for'", "'while'", "'do'", "'try'", "'finally'",
-		"'switch'", "'return'", "'throw'", "'break'", "'continue'", "'catch'",
-		"'case'", "'new'", "'++'", "'--'", "'+'", "'-'", "'~'", "'!'", "'/'",
-		"'%'", "'instanceof'", "'=='", "'!='", "'^'", "'|'", "'&&'", "'||'", "'^='",
-		"'+='", "'-='", "'*='", "'/='", "'&='", "'|='", "'%='", null, null, null,
+		null, "'package'", "';'", "'import'", "'static'", "'.'", "'*'", "'class'", 
+		"'extends'", "'implements'", "'public'", "'protected'", "'private'", "'abstract'", 
+		"'final'", "'strictfp'", "'<'", "','", "'>'", "'&'", "'{'", "'}'", "'interface'", 
+		"'['", "']'", "'void'", "'throws'", "'='", "'native'", "'synchronized'", 
+		"'transient'", "'volatile'", "'boolean'", "'char'", "'byte'", "'short'", 
+		"'int'", "'long'", "'float'", "'double'", "'?'", "'super'", "'('", "')'", 
+		"'...'", "'this'", "'null'", "'true'", "'false'", "'@'", "'default'", 
+		"':'", "'if'", "'else'", "'for'", "'while'", "'do'", "'try'", "'finally'", 
+		"'switch'", "'return'", "'throw'", "'break'", "'continue'", "'catch'", 
+		"'case'", "'new'", "'++'", "'--'", "'+'", "'-'", "'~'", "'!'", "'/'", 
+		"'%'", "'instanceof'", "'=='", "'!='", "'^'", "'|'", "'&&'", "'||'", "'^='", 
+		"'+='", "'-='", "'*='", "'/='", "'&='", "'|='", "'%='", null, null, null, 
 		null, null, null, "'enum'", "'assert'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, null, null, null,
-		null, null, null, null, null, null, null, null, null, null, null, null,
-		null, null, null, null, null, null, null, null, null, null, null, null,
-		null, null, null, null, null, null, null, null, null, null, null, null,
-		null, null, null, null, null, null, null, null, null, null, null, null,
-		null, null, null, null, null, null, null, null, null, null, null, null,
-		null, null, null, null, null, null, null, null, null, null, null, null,
-		null, null, null, null, null, null, "HexLiteral", "DecimalLiteral", "OctalLiteral",
-		"FloatingPointLiteral", "CharacterLiteral", "StringLiteral", "ENUM", "ASSERT",
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, "HexLiteral", "DecimalLiteral", "OctalLiteral", 
+		"FloatingPointLiteral", "CharacterLiteral", "StringLiteral", "ENUM", "ASSERT", 
 		"Identifier", "COMMENT", "WS", "LINE_COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
@@ -179,12 +171,12 @@ public class JavaParserTest extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public JavaParserTest(TokenStream input) {
+	public JavaParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class CompilationUnitContext extends ParserRuleContext {
-		public TerminalNode EOF() { return getToken(JavaParserTest.EOF, 0); }
+		public TerminalNode EOF() { return getToken(JavaParser.EOF, 0); }
 		public PackageDeclarationContext packageDeclaration() {
 			return getRuleContext(PackageDeclarationContext.class,0);
 		}
@@ -520,7 +512,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class ClassDeclarationContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public ClassBodyContext classBody() {
 			return getRuleContext(ClassBodyContext.class,0);
 		}
@@ -613,8 +605,8 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class EnumDeclarationContext extends ParserRuleContext {
-		public TerminalNode ENUM() { return getToken(JavaParserTest.ENUM, 0); }
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode ENUM() { return getToken(JavaParser.ENUM, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public EnumBodyContext enumBody() {
 			return getRuleContext(EnumBodyContext.class,0);
 		}
@@ -972,7 +964,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class TypeParameterContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public TypeBoundContext typeBound() {
 			return getRuleContext(TypeBoundContext.class,0);
 		}
@@ -1240,7 +1232,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class EnumConstantContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public AnnotationsContext annotations() {
 			return getRuleContext(AnnotationsContext.class,0);
 		}
@@ -1384,7 +1376,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class NormalInterfaceDeclarationContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public InterfaceBodyContext interfaceBody() {
 			return getRuleContext(InterfaceBodyContext.class,0);
 		}
@@ -1840,7 +1832,7 @@ public class JavaParserTest extends Parser {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public FormalParametersContext formalParameters() {
 			return getRuleContext(FormalParametersContext.class,0);
 		}
@@ -2116,7 +2108,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class ConstructorDeclarationContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public FormalParametersContext formalParameters() {
 			return getRuleContext(FormalParametersContext.class,0);
 		}
@@ -2291,7 +2283,7 @@ public class JavaParserTest extends Parser {
 		public InterfaceGenericMethodDeclContext interfaceGenericMethodDecl() {
 			return getRuleContext(InterfaceGenericMethodDeclContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public VoidInterfaceMethodDeclaratorRestContext voidInterfaceMethodDeclaratorRest() {
 			return getRuleContext(VoidInterfaceMethodDeclaratorRestContext.class,0);
 		}
@@ -2394,7 +2386,7 @@ public class JavaParserTest extends Parser {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public InterfaceMethodOrFieldRestContext interfaceMethodOrFieldRest() {
 			return getRuleContext(InterfaceMethodOrFieldRestContext.class,0);
 		}
@@ -2670,7 +2662,7 @@ public class JavaParserTest extends Parser {
 		public TypeParametersContext typeParameters() {
 			return getRuleContext(TypeParametersContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public InterfaceMethodDeclaratorRestContext interfaceMethodDeclaratorRest() {
 			return getRuleContext(InterfaceMethodDeclaratorRestContext.class,0);
 		}
@@ -2810,7 +2802,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class ConstantDeclaratorContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public ConstantDeclaratorRestContext constantDeclaratorRest() {
 			return getRuleContext(ConstantDeclaratorRestContext.class,0);
 		}
@@ -3111,7 +3103,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class VariableDeclaratorIdContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public VariableDeclaratorIdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3522,7 +3514,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class EnumConstantNameContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public EnumConstantNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3714,9 +3706,9 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class ClassOrInterfaceTypeContext extends ParserRuleContext {
-		public List<TerminalNode> Identifier() { return getTokens(JavaParserTest.Identifier); }
+		public List<TerminalNode> Identifier() { return getTokens(JavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
-			return getToken(JavaParserTest.Identifier, i);
+			return getToken(JavaParser.Identifier, i);
 		}
 		public List<TypeArgumentsContext> typeArguments() {
 			return getRuleContexts(TypeArgumentsContext.class);
@@ -4546,9 +4538,9 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class QualifiedNameContext extends ParserRuleContext {
-		public List<TerminalNode> Identifier() { return getTokens(JavaParserTest.Identifier); }
+		public List<TerminalNode> Identifier() { return getTokens(JavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
-			return getToken(JavaParserTest.Identifier, i);
+			return getToken(JavaParser.Identifier, i);
 		}
 		public QualifiedNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4613,9 +4605,9 @@ public class JavaParserTest extends Parser {
 		public IntegerLiteralContext integerLiteral() {
 			return getRuleContext(IntegerLiteralContext.class,0);
 		}
-		public TerminalNode FloatingPointLiteral() { return getToken(JavaParserTest.FloatingPointLiteral, 0); }
-		public TerminalNode CharacterLiteral() { return getToken(JavaParserTest.CharacterLiteral, 0); }
-		public TerminalNode StringLiteral() { return getToken(JavaParserTest.StringLiteral, 0); }
+		public TerminalNode FloatingPointLiteral() { return getToken(JavaParser.FloatingPointLiteral, 0); }
+		public TerminalNode CharacterLiteral() { return getToken(JavaParser.CharacterLiteral, 0); }
+		public TerminalNode StringLiteral() { return getToken(JavaParser.StringLiteral, 0); }
 		public BooleanLiteralContext booleanLiteral() {
 			return getRuleContext(BooleanLiteralContext.class,0);
 		}
@@ -4706,9 +4698,9 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class IntegerLiteralContext extends ParserRuleContext {
-		public TerminalNode HexLiteral() { return getToken(JavaParserTest.HexLiteral, 0); }
-		public TerminalNode OctalLiteral() { return getToken(JavaParserTest.OctalLiteral, 0); }
-		public TerminalNode DecimalLiteral() { return getToken(JavaParserTest.DecimalLiteral, 0); }
+		public TerminalNode HexLiteral() { return getToken(JavaParser.HexLiteral, 0); }
+		public TerminalNode OctalLiteral() { return getToken(JavaParser.OctalLiteral, 0); }
+		public TerminalNode DecimalLiteral() { return getToken(JavaParser.DecimalLiteral, 0); }
 		public IntegerLiteralContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -4950,9 +4942,9 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class AnnotationNameContext extends ParserRuleContext {
-		public List<TerminalNode> Identifier() { return getTokens(JavaParserTest.Identifier); }
+		public List<TerminalNode> Identifier() { return getTokens(JavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
-			return getToken(JavaParserTest.Identifier, i);
+			return getToken(JavaParser.Identifier, i);
 		}
 		public AnnotationNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5076,7 +5068,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class ElementValuePairContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public ElementValueContext elementValue() {
 			return getRuleContext(ElementValueContext.class,0);
 		}
@@ -5314,7 +5306,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class AnnotationTypeDeclarationContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public AnnotationTypeBodyContext annotationTypeBody() {
 			return getRuleContext(AnnotationTypeBodyContext.class,0);
 		}
@@ -5686,7 +5678,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class AnnotationMethodRestContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public DefaultValueContext defaultValue() {
 			return getRuleContext(DefaultValueContext.class,0);
 		}
@@ -6146,7 +6138,7 @@ public class JavaParserTest extends Parser {
 		public BlockContext block(int i) {
 			return getRuleContext(BlockContext.class,i);
 		}
-		public TerminalNode ASSERT() { return getToken(JavaParserTest.ASSERT, 0); }
+		public TerminalNode ASSERT() { return getToken(JavaParser.ASSERT, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
@@ -6171,7 +6163,7 @@ public class JavaParserTest extends Parser {
 		public SwitchBlockContext switchBlock() {
 			return getRuleContext(SwitchBlockContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public StatementExpressionContext statementExpression() {
 			return getRuleContext(StatementExpressionContext.class,0);
 		}
@@ -7051,7 +7043,7 @@ public class JavaParserTest extends Parser {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -7363,7 +7355,7 @@ public class JavaParserTest extends Parser {
 		public CreatorContext creator() {
 			return getRuleContext(CreatorContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public ExpressionListContext expressionList() {
 			return getRuleContext(ExpressionListContext.class,0);
 		}
@@ -8009,7 +8001,7 @@ public class JavaParserTest extends Parser {
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
@@ -8281,7 +8273,7 @@ public class JavaParserTest extends Parser {
 	}
 
 	public static class InnerCreatorContext extends ParserRuleContext {
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public ClassCreatorRestContext classCreatorRest() {
 			return getRuleContext(ClassCreatorRestContext.class,0);
 		}
@@ -8345,7 +8337,7 @@ public class JavaParserTest extends Parser {
 		public NonWildcardTypeArgumentsContext nonWildcardTypeArguments() {
 			return getRuleContext(NonWildcardTypeArgumentsContext.class,0);
 		}
-		public TerminalNode Identifier() { return getToken(JavaParserTest.Identifier, 0); }
+		public TerminalNode Identifier() { return getToken(JavaParser.Identifier, 0); }
 		public ArgumentsContext arguments() {
 			return getRuleContext(ArgumentsContext.class,0);
 		}

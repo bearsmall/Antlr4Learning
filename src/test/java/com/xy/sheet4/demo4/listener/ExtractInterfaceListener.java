@@ -1,10 +1,10 @@
-package com.xy.demo00;
+package com.xy.sheet4.demo4.listener;
 
 import com.xy.sheet4.demo4.JavaBaseListener;
 import com.xy.sheet4.demo4.JavaParser;
 import org.antlr.v4.runtime.TokenStream;
 
-public class ExtractInterfaceListenerTest extends JavaBaseListener {
+public class ExtractInterfaceListener extends JavaBaseListener {
     JavaParser javaParser;
 
     public ExtractInterfaceListener(JavaParser javaParser) {
@@ -39,5 +39,18 @@ public class ExtractInterfaceListenerTest extends JavaBaseListener {
         }
         String args = tokenStream.getText(ctx.formalParameters());
         System.out.println("\t"+type+" "+ ctx.Identifier()+args+":");
+    }
+
+    /**
+     * 监听 import
+     * @param ctx
+     */
+    @Override
+    public void enterImportDeclaration(JavaParser.ImportDeclarationContext ctx) {
+        if(ctx.getChildCount()==3) {
+            System.out.println("import " + ctx.qualifiedName().getText() + ";\n");
+        }else {
+            System.out.println("import static " + ctx.qualifiedName().getText() + ";\n");
+        }
     }
 }
