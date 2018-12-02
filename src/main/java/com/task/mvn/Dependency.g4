@@ -1,30 +1,18 @@
 grammar Dependency;
 
+depend: dependList*;
 
-dependency:BLANK dependList BLANK;
+dependList: INFO SWITCH dependItem ;
 
-dependList: '[INFO] '('|  ')*('+- '|'\- ')denpendItem;
+dependItem: dependentUnit(':'Identifier) Tail;
 
-denpendItem: dependentUnit(':compile'|':runtime');
+dependentUnit: packageName':'packageName':jar:'(Identifier':')*versionUnit;
 
-dependentUnit: packageName':'JavaLetter':jar:'versionUnit;
-
-versionUnit: versionDigit ':' LDEVL;
-
-LEVEL : 'RELEASE'|'DEBUG';
-
-versionDigit : Number'.'Number'.'Number;
-
-Number:[0-1]+;
+versionUnit: Number('.'Number)*('.'Identifier)*;
 
 packageName
 	:	Identifier
 	|	packageName '.' Identifier
-	;
-
-packageOrTypeName
-	:	Identifier
-	|	packageOrTypeName '.' Identifier
 	;
 
 Identifier
@@ -32,7 +20,7 @@ Identifier
 	;
 fragment
 JavaLetter
-	:	[a-zA-Z$_] // these are the "java letters" below 0x7F
+	:	[a-zA-Z$_\-] // these are the "java letters" below 0x7F
 	|	// covers all characters above 0x7F which are not a surrogate
 		~[\u0000-\u007F\uD800-\uDBFF]
 		{Character.isJavaIdentifierStart(_input.LA(-1))}?
@@ -43,7 +31,7 @@ JavaLetter
 
 fragment
 JavaLetterOrDigit
-	:	[a-zA-Z0-9$_] // these are the "java letters or digits" below 0x7F
+	:	[a-zA-Z0-9$_\-] // these are the "java letters or digits" below 0x7F
 	|	// covers all characters above 0x7F which are not a surrogate
 		~[\u0000-\u007F\uD800-\uDBFF]
 		{Character.isJavaIdentifierPart(_input.LA(-1))}?
@@ -52,10 +40,12 @@ JavaLetterOrDigit
 		{Character.isJavaIdentifierPart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
 	;
 
-BLANK :  .*?;
+Number:[0-9]+;
 
-WS  :  [ \t\r\n\u000C]+ -> skip;
+INFO: '[INFO]'(' ')*('|'(' ')*)*;
 
-BEGIN : [\r\n]*'[INFO] --- maven-dependency-plugin:';
+SWITCH: ('+- '|'\\- ') ;
 
-END : [\r\n]*'[INFO] ---';
+//WS  :  [ \t\r\n\u000C]+ ;
+
+Tail: .*?[\r\n]*;
