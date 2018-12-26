@@ -1,4 +1,4 @@
-package com.cmp.extract.demo1.utils;
+package com.extract.demo1.utils;
 
 public abstract class ConstantParams {
     public static final String FPARAM = "FPARAM";

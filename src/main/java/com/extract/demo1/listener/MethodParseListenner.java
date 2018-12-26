@@ -1,6 +1,5 @@
-package com.method.demo1.listener;
+package com.extract.demo1.listener;
 
-import com.cmp.DefaultCodeFile;
 import com.cmp.ModuleEntity;
 import com.cmp.antlr.java.JavaParser;
 import com.cmp.antlr.java.JavaParserBaseListener;
@@ -10,10 +9,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class MethodExtractorListenner extends JavaParserBaseListener {
+public class MethodParseListenner extends JavaParserBaseListener {
 
     private List<ModuleEntity> moduleEntityList = new ArrayList<>();
     private List<Token> formalParamInterval = new ArrayList<>();
@@ -90,7 +87,7 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
         this.paramInterval = paramInterval;
     }
 
-    public MethodExtractorListenner(String content, List<Token> tokenList) {
+    public MethodParseListenner(String content, List<Token> tokenList) {
         this.content = content;
         this.tokenList = tokenList;
     }
@@ -117,7 +114,7 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
         ParseTree parseTree = ctx.getChild(1);
         String param = parseTree.getText();
         Interval interval = parseTree.getSourceInterval();
-        System.out.println("enterFormalParameter-->"+param);
+//        System.out.println("enterFormalParameter-->"+param);
         formalParamInterval.add(tokenList.get(interval.a));
     }
 
@@ -126,9 +123,12 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
         ParseTree parseTree = ctx.getChild(1);
         for(int i=0;i<parseTree.getChildCount();i++){
             ParseTree children = parseTree.getChild(i).getChild(0);
+            if(children==null){
+                continue;
+            }
             String param = children.getText();
             Interval interval = children.getSourceInterval();
-            System.out.println("enterLocalVariableDeclaration-->"+param);
+//            System.out.println("enterLocalVariableDeclaration-->"+param);
             localParamInterval.add(tokenList.get(interval.a));
         }
     }
@@ -137,7 +137,7 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
     public void enterClassOrInterfaceType(JavaParser.ClassOrInterfaceTypeContext ctx) {
         String param = ctx.getText();
         Interval interval = ctx.getSourceInterval();
-        System.out.println("enterClassOrInterfaceType-->"+param);
+//        System.out.println("enterClassOrInterfaceType-->"+param);
         dataTypeInterval.add(tokenList.get(interval.a));
     }
 
@@ -145,7 +145,7 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
     public void enterPrimitiveType(JavaParser.PrimitiveTypeContext ctx) {
         String param = ctx.getText();
         Interval interval = ctx.getSourceInterval();
-        System.out.println("enterPrimitiveType-->"+param);
+//        System.out.println("enterPrimitiveType-->"+param);
         dataTypeInterval.add(tokenList.get(interval.a));
     }
 
@@ -154,7 +154,7 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
         ParseTree parseTree = ctx.getChild(0);
         String param = parseTree.getText();
         Interval interval = parseTree.getSourceInterval();
-        System.out.println("enterMethodCall-->"+param);
+//        System.out.println("enterMethodCall-->"+param);
         methodCallInterval.add(tokenList.get(interval.a));
     }
 
@@ -165,7 +165,7 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
         }
         String param = ctx.getText();
         Interval interval = ctx.getSourceInterval();
-        System.out.println("enterPrimary-->"+param);
+//        System.out.println("enterPrimary-->"+param);
         paramInterval.add(tokenList.get(interval.a));
     }
 }

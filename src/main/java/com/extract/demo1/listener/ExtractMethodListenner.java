@@ -1,15 +1,11 @@
-package com.cmp.extract.demo1.listener;
+package com.extract.demo1.listener;
 
-import com.cmp.DefaultCodeFile;
-import com.cmp.ModuleEntity;
 import com.cmp.antlr.java.JavaParser;
 import com.cmp.antlr.java.JavaParserBaseListener;
 import org.antlr.v4.runtime.Token;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ExtractMethodListenner extends JavaParserBaseListener {
 

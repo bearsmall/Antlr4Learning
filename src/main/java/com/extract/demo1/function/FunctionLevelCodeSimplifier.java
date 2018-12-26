@@ -1,12 +1,11 @@
-package com.cmp.extract.demo1.function;
+package com.extract.demo1.function;
 
 import com.cmp.LineStruct;
-import com.cmp.ModuleEntity;
 import com.cmp.antlr.java.JavaLexer;
 import com.cmp.antlr.java.JavaParser;
-import com.cmp.extract.demo1.listener.ExtractMethodListenner;
-import com.cmp.extract.demo1.listener.MethodParseListenner;
-import com.cmp.extract.demo1.utils.ConstantParams;
+import com.extract.demo1.listener.ExtractMethodListenner;
+import com.extract.demo1.listener.MethodParseListenner;
+import com.extract.demo1.utils.ConstantParams;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
