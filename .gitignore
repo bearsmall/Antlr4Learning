@@ -85,3 +85,4 @@ src/test/resources/language/html/
 src/test/resources/language/java8/
 src/test/resources/language/java9/
 src/test/resources/language/javascript/
+!/src/test/java/com/method/demo1/MethodExtractor.java
