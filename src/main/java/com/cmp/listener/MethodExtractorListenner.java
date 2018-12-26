@@ -5,7 +5,6 @@ import com.cmp.ModuleEntity;
 import com.cmp.antlr.java.JavaParser;
 import com.cmp.antlr.java.JavaParserBaseListener;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.TokenStream;
 
 import java.util.List;
 import java.util.regex.Matcher;

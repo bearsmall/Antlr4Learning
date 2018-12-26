@@ -27,7 +27,7 @@ public class MethodExtractor {
         StringBuffer str = new StringBuffer();
         List<Token> tokenList = modifyTokenValue(loader);
         for(int i=0;i<tokenList.size()-1;i++){
-            str.append(tokenList.get(i).getText());
+            str.append(tokenList.get(i).getText()).append(' ');
         }
         System.out.println(str);
         System.out.println(loader);//从map中取值
@@ -49,29 +49,29 @@ public class MethodExtractor {
         for(Token token: formalParamInterval){
             for(Token t : paramInterval){
                 if(t.getText().equals(token.getText())) {
-                    tokenList.set(t.getTokenIndex(),new CommonToken(1, "FORMAL_PARAM"));
+                    tokenList.set(t.getTokenIndex(),new CommonToken(1, "FPARAM"));
 
                 }
             }
-            tokenList.set(token.getTokenIndex(),new CommonToken(1,"FORMAL_PARAM"));
+            tokenList.set(token.getTokenIndex(),new CommonToken(1,"FPARAM"));
         }
         for(Token token : localParamInterval){
             for(Token t : paramInterval){
                 if(t.getText().equals(token.getText())) {
-                    tokenList.set(t.getTokenIndex(),new CommonToken(1, "LOCAL_PARAM"));
+                    tokenList.set(t.getTokenIndex(),new CommonToken(1, "LVAR"));
                 }
             }
-            tokenList.set(token.getTokenIndex(),new CommonToken(1,"LOCAL_PARAM"));
+            tokenList.set(token.getTokenIndex(),new CommonToken(1,"LVAR"));
         }
         for(Token token : dataTypeInterval){
-            tokenList.set(token.getTokenIndex(),new CommonToken(1,"DATA_TYPE"));
+            tokenList.set(token.getTokenIndex(),new CommonToken(1,"DTYPE"));
         }
         for(Token token : methodCallInterval){
-            tokenList.set(token.getTokenIndex(),new CommonToken(1,"METHOD_CALL"));
+            tokenList.set(token.getTokenIndex(),new CommonToken(1,"FUNCCALL"));
         }
         for(Token token : paramInterval){
             String txt = tokenList.get(token.getTokenIndex()).getText();
-            if(txt.equals("FORMAL_PARAM")||txt.equals("LOCAL_PARAM")) {
+            if(txt.equals("FPARAM")||txt.equals("LVAR")) {
             }else {
                 tokenList.set(token.getTokenIndex(),new CommonToken(1, "GLOBAL_PARAM"));
             }
