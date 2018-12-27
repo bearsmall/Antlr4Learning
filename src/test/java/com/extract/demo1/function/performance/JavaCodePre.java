@@ -15,34 +15,44 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * 性能测试：
+ * 1. 提取代码仓库中的源文件
+ * 2. 提取出源文件中的函数
+ * 3. 解析并分析函数（抽象化处理）
+ * 4. 函数预处理结构映射
+ * 5. 数据量统计、耗时分析
+ * tips：
+ * 1. 多线程
+ * 2. 文件迭代 \ 非迭代遍历
+ */
 @Slf4j
 public class JavaCodePre {
-    List<File> fileList = new LinkedList<File>();
-    private AtomicLong line = new AtomicLong(0);
-    private Multimap<Integer,Integer> multiMap = ArrayListMultimap.create();
-    private long totalSize = 0;
+    List<File> fileList = new LinkedList<File>();//文件列表，size为源文件数量
+    private AtomicLong line = new AtomicLong(0);//总代码行数
+    private Multimap<Integer,Integer> multiMap = ArrayListMultimap.create(); //存储结构化map信息
+    private long totalSize = 0; //文件总大小【字节为单位】
 
     @Test
-    public void test() throws IOException {
-        File root = new File("E:\\code");
+    public void testMultiThreadPerformance() throws IOException {
+        File root = new File("E:\\code");//样本源码文件路径
         Long start = System.currentTimeMillis();
-        render(root);
+        render(root);//提取路径下的源文件列表【递归or非递归】
         ExecutorService executorService = new ThreadPoolExecutor(4,8,60, TimeUnit.SECONDS,new LinkedBlockingDeque<>());
         int size = fileList.size();
         final CountDownLatch countDownLatch = new CountDownLatch(size);
-        for (File file:fileList){
+        for (File file:fileList){//采用多线程方式加速处理速度
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         FunctionLevelCodeSimplifier functionLevelCodeSimplifier = new FunctionLevelCodeSimplifier();
-                        String code = IOAgent.getInstance().getFileText(file);
-                        int i = code.split("\\n").length;
-                        line.addAndGet(i);
-                        List<String> functions = functionLevelCodeSimplifier.getSimplifiedMethods(code);
+                        String code = IOAgent.getInstance().getFileText(file);//源文件读取
+                        int i = code.split("\\n").length;//代码行数
+                        line.addAndGet(i);//总代码行数
+                        List<String> functions = functionLevelCodeSimplifier.getSimplifiedMethods(code);//方法级别源码抽象
                         for(String function:functions){
-                            log.info(function);
-                            multiMap.put(function.length(),function.hashCode());
+                            multiMap.put(function.length(),function.hashCode());//将抽象出的函数块结构化存储【key -> value】{ key：函数长度；value：函数hash}
                         }
                     } finally {
                         countDownLatch.countDown();
@@ -56,8 +66,10 @@ public class JavaCodePre {
             e.printStackTrace();
         }
         Long end = System.currentTimeMillis();
-        System.out.println(end-start);
-        System.out.println(totalSize);
+        //统计并输出
+        log.info("total size:"+totalSize);
+        log.info("total line:"+line.get());
+        log.info("total spend: "+(end-start));
         for (Integer key : multiMap.keySet()) {
             System.out.println(multiMap.get(key));
         }
