@@ -75,7 +75,6 @@ public class FunctionLevelCodeSimplifier {
         for(int i=0;i<tokenList.size()-1;i++){
             str.append(tokenList.get(i).getText()).append(' ');
         }
-        System.out.println(str);
         return str.toString();
     }
 
