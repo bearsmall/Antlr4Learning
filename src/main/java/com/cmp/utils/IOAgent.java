@@ -1,10 +1,12 @@
 package com.cmp.utils;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 public final class IOAgent {
 
-    private static IOAgent ioagent = null;
+    private static volatile IOAgent ioagent = null;
 
     /**
      * 文件BOM头的数值
@@ -17,9 +19,13 @@ public final class IOAgent {
     /**
      * @return 获取单例对象
      */
-    public static synchronized IOAgent getInstance() {
+    public static IOAgent getInstance() {
         if (ioagent == null) {
-            ioagent = new IOAgent();
+            synchronized (IOAgent.class){
+                if(ioagent==null){
+                    ioagent = new IOAgent();
+                }
+            }
         }
         return ioagent;
     }
@@ -106,35 +112,29 @@ public final class IOAgent {
      * @param f  给定的磁盘文件
      * @return 文件内容
      */
-    public String getFileText(File f) {
-        /**
-         * 为空、不存在、不是文件、不可读
-         */
+    public String getFileTextOld(File f) {
+        //为空、不存在、不是文件、不可读
         if (f == null || !f.exists() || !f.isFile() || !f.canRead()) {
             return null;
         }
-        int len = (int) f.length();
-        if (len <= 0) {
+        if (f.length() <= 0) {
             return null;
         }
-        /*
-         * 得到该文件的编码格式字符串
-         */
+        //得到该文件的编码格式字符串
         String type = getCodeType(f);
-
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
         try {
-            FileInputStream fis = new FileInputStream(f);
-            /*
-             * 指定读取文件时以type的编码格式读取
-             */
-            InputStreamReader isr = new InputStreamReader(fis, type);
-            BufferedReader br = new BufferedReader(isr);
-            char[] content = new char[len]; //文本文件一般比较小
+            fis = new FileInputStream(f);
+            //指定读取文件时以type的编码格式读取
+            isr = new InputStreamReader(fis, type);
+            br = new BufferedReader(isr);
+            //文本文件一般比较小
+            char[] content = new char[fis.available()];
             int textLen = br.read(content);
             int offset = 0;
-            /*
-             * 去掉BOM头无效字符
-             */
+            //去掉BOM头无效字符
             if (BOM_VALUE == (int) content[0]) {
                 offset = 1;
             }
@@ -142,19 +142,130 @@ public final class IOAgent {
             return unifyLineSeparator(ret);
         } catch (IOException e) {
             return null;
+        }finally {//资源关闭【import！不关闭会导致内存泄露或频繁的full gc】
+            if(br!=null){
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    if(isr!=null){
+                        try {
+                            isr.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }finally {
+                            if(fis!=null){
+                                try {
+                                    fis.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
-
+    public String getFileText(File f) {
+        //为空、不存在、不是文件、不可读
+        if (f == null || !f.exists() || !f.isFile() || !f.canRead()) {
+            return null;
+        }
+        if (f.length() <= 0) {
+            return null;
+        }
+        //得到该文件的编码格式字符串
+        String type = getCodeType(f);
+        FileInputStream fis = null;
+        FileChannel channel = null;
+        try {
+            fis = new FileInputStream(f);
+            channel = fis.getChannel();
+            int capacity = 4096;
+            ByteBuffer bf = ByteBuffer.allocate(capacity);
+            int length = -1;
+            StringBuilder sb = new StringBuilder();
+            while ((length = channel.read(bf)) != -1) {
+                bf.clear();
+                byte[] bytes = bf.array();
+                sb.append(new String(bytes,0,length,type));
+            }
+            bf.clear();
+            return unifyLineSeparator(sb.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(channel!=null){
+                try {
+                    channel.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    if(fis!=null){
+                        try {
+                            fis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
     /**
-     * new method to get the
+     * new method to get the encoding type（accurate but too slow）
      * @param f
      * @return
      */
-    private String getCodeType(File f) {
+    private String getCodeTypeNew(File f) {
         String encode = EncodingDetect.getJavaEncode(f.getAbsolutePath());
         return encode;
     }
-
+    /**
+     * 判断文件f的字符编码
+     *
+     * @param f
+     *            需要进行分析的文件
+     * @return 文件f的字符编码名称
+     */
+    public static String getCodeType(File f) {
+        final byte _ef = (byte) 0xef;
+        final byte _bb = (byte) 0xbb;
+        final byte _bf = (byte) 0xbf;
+        final byte _fe = (byte) 0xfe;
+        final byte _ff = (byte) 0xff;
+        byte[] bom = new byte[10];
+        int cn = -1;
+        try {
+            FileInputStream is = new FileInputStream(f);
+            cn = is.read(bom);
+            is.close();
+        } catch (Exception ex) {
+        }
+        if (cn >= 3 && bom[0] == _ef && bom[1] == _bb && bom[2] == _bf) {
+            return "UTF-8";
+        } else if (cn >= 2 && bom[0] == _ff && bom[1] == _fe) {
+            return "Unicode";
+        } else if (cn >= 2 && bom[0] == _fe && bom[1] == _ff) {
+            // Unicode big endian
+            return "Unicode";
+        } else {
+            // 初步认为是文件无BOM头，返回当前操作系统的默认文件编码
+            return System.getProperty("file.encoding");
+        }
+        // String os = System.getProperty("os.name").toLowerCase();
+        // if (os.indexOf("win") >= 0) {// windows
+        // } else if (os.indexOf("mac") >= 0) {// mac
+        // } else if (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0) {//
+        // linux或unix
+        // }else {
+        // }
+    }
     /**
      * 写磁盘文件方法
      *

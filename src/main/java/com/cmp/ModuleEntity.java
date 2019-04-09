@@ -12,14 +12,19 @@ public class ModuleEntity {
     private int tokenStart; //token开始
     private int tokenEnd;   //token结束
 
+    private int lineBegin;  //开始行
+    private int lineEnd;    //结束行
+
     private String content;  //文本内容
     private List<Token> tokenList = new LinkedList<>(); //token列表
 
-    public ModuleEntity(int charStart, int charEnd, int tokenStart, int tokenEnd, String content, List<Token> tokenList) {
+    public ModuleEntity(int charStart, int charEnd, int tokenStart, int tokenEnd, int lineBegin, int lineEnd, String content, List<Token> tokenList) {
         this.charStart = charStart;
         this.charEnd = charEnd;
         this.tokenStart = tokenStart;
         this.tokenEnd = tokenEnd;
+        this.lineBegin = lineBegin;
+        this.lineEnd = lineEnd;
         this.content = content;
         this.tokenList = tokenList;
     }
@@ -54,6 +59,22 @@ public class ModuleEntity {
 
     public void setTokenEnd(int tokenEnd) {
         this.tokenEnd = tokenEnd;
+    }
+
+    public int getLineBegin() {
+        return lineBegin;
+    }
+
+    public void setLineBegin(int lineBegin) {
+        this.lineBegin = lineBegin;
+    }
+
+    public int getLineEnd() {
+        return lineEnd;
+    }
+
+    public void setLineEnd(int lineEnd) {
+        this.lineEnd = lineEnd;
     }
 
     public String getContent() {

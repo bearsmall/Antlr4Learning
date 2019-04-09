@@ -8,6 +8,7 @@ import com.cmp.compare.CompareDirector;
 import com.cmp.compare.CompareResult;
 import com.cmp.compare.Granularity;
 import com.cmp.compare.JavaCompareTest;
+import com.cmp.factory.CCodeFactory;
 import com.cmp.factory.ICodeFactory;
 import com.cmp.factory.JavaCodeFactory;
 import org.antlr.v4.runtime.CharStream;
@@ -27,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LexicalParser {
 
     List<File> fileList = new LinkedList<File>();
-    public static ICodeFactory icodeFactory = JavaCodeFactory.getInstance();
+    public static ICodeFactory icodeFactory = CCodeFactory.getInstance();
     CompareDirector mlcsd  = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.TEXT_COMPARE);         //比对指示器1（文本比对）;
     CompareDirector tokenmd  = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.TOKEN_COMPARE);    //比对指示器2（Token比对）;
     CompareDirector syntaxd = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.SYNTAX_COMPARE);     //比对指示器3（语法树比对）
@@ -35,7 +36,7 @@ public class LexicalParser {
     private static DefaultCodeFile defaultCodeFile1;
     static {
         String src1 = JavaCompareTest.class.getClassLoader().getResource("language/java/JavaParserTest.java").getPath();
-        defaultCodeFile1 = icodeFactory.generateDefectCodeFile(new File(src1));
+        defaultCodeFile1 = icodeFactory.generateDefectCodeFile(new File("D:\\test\\simi\\target\\demo1.c"));
     }
     @Test
     public void test1() throws IOException {
@@ -164,7 +165,7 @@ public class LexicalParser {
 
     @Test
     public void tes3() throws IOException {
-        File root = new File("E:\\code");
+        File root = new File("D:\\test\\simi\\repo\\elasticsearch");
         Long start = System.currentTimeMillis();
         render(root);
         ExecutorService executorService = new ThreadPoolExecutor(4,8,60, TimeUnit.SECONDS,new LinkedBlockingDeque<>());
@@ -254,7 +255,7 @@ public class LexicalParser {
     }
 
     public void runFile(File file) throws IOException {
-        if(file.getPath().endsWith(".java")){
+        if(file.getPath().endsWith(".c")){
             fileList.add(file);
         }
     }

@@ -73,7 +73,9 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
         int charEnd = stop.getStartIndex();
         int tokenStart = start.getTokenIndex();
         int tokenEnd = stop.getTokenIndex();
-        return new ModuleEntity(charStart,charEnd,tokenStart,tokenEnd,defaultCodeFile.getContent().substring(charStart,charEnd+1),tokenList.subList(tokenStart,tokenEnd));
+        int lineBegin = start.getLine();
+        int lineEnd = stop.getLine();
+        return new ModuleEntity(charStart,charEnd,tokenStart,tokenEnd,lineBegin,lineEnd,defaultCodeFile.getContent().substring(charStart,charEnd+1),tokenList.subList(tokenStart,tokenEnd));
     }
 
     @Override
