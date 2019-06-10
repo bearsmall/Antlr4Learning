@@ -511,7 +511,7 @@ lambdaExpression
 // Java8
 lambdaParameters
     : IDENTIFIER
-    | '(' formalParameterList? ')'
+    | '(' formalParameterList?  ')'
     | '(' IDENTIFIER (',' IDENTIFIER)* ')'
     ;
 

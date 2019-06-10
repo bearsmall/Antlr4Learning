@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LexicalParser {
 
     List<File> fileList = new LinkedList<File>();
-    public static ICodeFactory icodeFactory = CCodeFactory.getInstance();
+    public static ICodeFactory icodeFactory = JavaCodeFactory.getInstance();
     CompareDirector mlcsd  = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.TEXT_COMPARE);         //比对指示器1（文本比对）;
     CompareDirector tokenmd  = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.TOKEN_COMPARE);    //比对指示器2（Token比对）;
     CompareDirector syntaxd = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.SYNTAX_COMPARE);     //比对指示器3（语法树比对）
@@ -255,7 +255,7 @@ public class LexicalParser {
     }
 
     public void runFile(File file) throws IOException {
-        if(file.getPath().endsWith(".c")){
+        if(file.getPath().endsWith(".java")){
             fileList.add(file);
         }
     }

@@ -44,7 +44,7 @@ public abstract class ICodeFactory {
 //            log.debug("level 2:预处理Token:{}",file.getAbsolutePath());
             prepareTokenLine(defaultCodeFile);
 //            log.debug("level 3:预处理语法树:{}",file.getAbsolutePath());
-            prepareSyntaxTree(defaultCodeFile);
+            //prepareSyntaxTree(defaultCodeFile);
             Long end = System.currentTimeMillis();
 //            log.debug("预处理耗时:{}秒！filePath:{}",(end-start)/1000,file.getAbsolutePath());
             if((end-start)>10*1000){//如果预处理过程大于10 seconds，记一次异常日志！

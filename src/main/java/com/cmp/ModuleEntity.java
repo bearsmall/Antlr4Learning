@@ -2,8 +2,7 @@ package com.cmp;
 
 import org.antlr.v4.runtime.Token;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ModuleEntity {
     private int charStart; //字符开始
@@ -17,6 +16,9 @@ public class ModuleEntity {
 
     private String content;  //文本内容
     private List<Token> tokenList = new LinkedList<>(); //token列表
+
+    private Set<Token> declaredParams;  //函数定义的参数
+    private Set<Token> unUsedParams;    //未使用的参数
 
     public ModuleEntity(int charStart, int charEnd, int tokenStart, int tokenEnd, int lineBegin, int lineEnd, String content, List<Token> tokenList) {
         this.charStart = charStart;
@@ -91,5 +93,33 @@ public class ModuleEntity {
 
     public void setTokenList(List<Token> tokenList) {
         this.tokenList = tokenList;
+    }
+
+    public Set<Token> getDeclaredParams() {
+        return declaredParams;
+    }
+
+    public void setDeclaredParams(Set<Token> declaredParams) {
+        this.declaredParams = declaredParams;
+    }
+
+    public Set<Token> getUnUsedParams() {
+        return unUsedParams;
+    }
+
+    public void setUnUsedParams(Set<Token> unUsedParams) {
+        this.unUsedParams = unUsedParams;
+    }
+
+    //获取函数实际参数个数
+    public int getRealParamNumber(){
+        if(declaredParams==null||declaredParams.isEmpty()){
+            return 0;
+        }
+        if(unUsedParams==null||unUsedParams.isEmpty()){
+            return declaredParams.size();
+        }else {
+            return declaredParams.size()-unUsedParams.size();
+        }
     }
 }

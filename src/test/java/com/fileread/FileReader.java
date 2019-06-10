@@ -1,9 +1,23 @@
 package com.fileread;
 
 import com.cmp.DefaultCodeFile;
+import com.cmp.LineStruct;
 import com.cmp.ModuleEntity;
+import com.cmp.antlr.java.JavaLexer;
+import com.cmp.antlr.java.JavaParser;
+import com.cmp.compare.*;
+import com.cmp.compare.Comparator;
 import com.cmp.factory.JavaCodeFactory;
+import com.cmp.listener.ChangeToLambdaExtractListener;
+import com.cmp.listener.LambdaExtractListener;
+import com.cmp.listener.MethodExtractorListenner;
 import com.cmp.utils.IOAgent;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Test;
 
 import java.io.*;
@@ -204,8 +218,135 @@ public class FileReader {
     }
 
     @Test
-    public void test() throws IOException {
+    public void testChangeToLambda() throws IOException {
+        List<DefaultCodeFile> queue = Collections.synchronizedList(new LinkedList<>());
+        File root = new File("D:\\test\\simi\\repo\\jdk1.8");
+        Long start = System.currentTimeMillis();
+        render(root);
+        Long middle = System.currentTimeMillis();
+        System.out.println(middle-start);
+        ExecutorService executorService = new ThreadPoolExecutor(16,32,60, TimeUnit.SECONDS,new LinkedBlockingDeque<>());
+        int size = fileList.size();
+        final CountDownLatch countDownLatch = new CountDownLatch(size);
+        AtomicLong atomicInteger = new AtomicLong(0);
+        int totalFiles = fileList.size();
+        AtomicLong totalMethods = new AtomicLong(0);
+        AtomicLong totalLineOfMethods = new AtomicLong(0);
+        for (File file:fileList){
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String fileContent = IOAgent.getInstance().getFileText(file);
+                        CharStream inputStream = CharStreams.fromString(fileContent);
+                        JavaLexer lexer = new JavaLexer(inputStream);
+                        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+                        JavaParser parser = new JavaParser(tokenStream);
+                        ParseTree tree = parser.compilationUnit();
+
+                        int hashValue=0;
+                        int tempHashValue=0;
+                        int tempLineNum=1;
+                        String lineString = new String();
+                        List<LineStruct> linetokenlist = new LinkedList<>();
+                        for (Token token:tokenStream.getTokens()){
+                            int type = token.getType();
+                            if(token.getChannel()==JavaLexer.HIDDEN){
+                                continue;
+                            }
+                            if (token.getLine()==tempLineNum){
+                                lineString = lineString+" "+type;
+                            }else {
+                                hashValue = lineString.hashCode();
+                                if(hashValue!=tempHashValue){
+                                    LineStruct lineStruct=new LineStruct();
+                                    lineStruct.setLineNum(tempLineNum);
+                                    lineStruct.setHashValue(hashValue);
+                                    linetokenlist.add(lineStruct);
+                                    tempHashValue=hashValue;
+                                }
+                                lineString = " "+token.getText();;
+                                tempLineNum = token.getLine();
+                            }
+                        }
+                        ParseTreeWalker walker = new ParseTreeWalker();//新建一个标准的遍历器
+                        ChangeToLambdaExtractListener extractor = new ChangeToLambdaExtractListener(fileContent,tokenStream.getTokens());
+                        walker.walk(extractor,tree);
+                        if(extractor.isChanged()){
+                            System.out.println(extractor.getContentBefore());
+                            String str = new String(extractor.getContent());
+                            System.out.println(str);
+                        }
+                    }finally {
+                        countDownLatch.countDown();
+                    }
+                }
+            });
+        }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Long end = System.currentTimeMillis();
+        System.out.println(LambdaExtractListener.lambdaCount);
+        System.out.println(LambdaExtractListener.innerCount);
+        System.out.println("Parse Spend:"+(end-middle));
+        System.out.println("Total Bytes:"+atomicInteger);
+        System.out.println("Total File Numbers:"+totalFiles);
+    }
+
+    @Test
+    public void testLambda() throws IOException {
+        List<DefaultCodeFile> queue = Collections.synchronizedList(new LinkedList<>());
         File root = new File("D:\\test\\simi\\repo");
+        Long start = System.currentTimeMillis();
+        render(root);
+        Long middle = System.currentTimeMillis();
+        System.out.println(middle-start);
+        ExecutorService executorService = new ThreadPoolExecutor(16,32,60, TimeUnit.SECONDS,new LinkedBlockingDeque<>());
+        int size = fileList.size();
+        final CountDownLatch countDownLatch = new CountDownLatch(size);
+        AtomicLong atomicInteger = new AtomicLong(0);
+        int totalFiles = fileList.size();
+        AtomicLong totalMethods = new AtomicLong(0);
+        AtomicLong totalLineOfMethods = new AtomicLong(0);
+        for (File file:fileList){
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        DefaultCodeFile defaultCodeFile = JavaCodeFactory.getInstance().generateDefectCodeFile(file);
+                        if(defaultCodeFile.getMethods()!=null) {
+                            totalMethods.addAndGet(defaultCodeFile.getMethods().size());
+                            for (ModuleEntity moduleEntity : defaultCodeFile.getMethods()) {
+                                int lines = moduleEntity.getLineEnd() - moduleEntity.getLineBegin() + 1;
+                                totalLineOfMethods.addAndGet(lines);
+                            }
+                        }
+                    }finally {
+                        countDownLatch.countDown();
+                    }
+                }
+            });
+        }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Long end = System.currentTimeMillis();
+        System.out.println(LambdaExtractListener.lambdaCount);
+        System.out.println(LambdaExtractListener.innerCount);
+        System.out.println("Parse Spend:"+(end-middle));
+        System.out.println("Total Bytes:"+atomicInteger);
+        System.out.println("Total File Numbers:"+totalFiles);
+    }
+
+    @Test
+    public void test() throws IOException {
+        List<DefaultCodeFile> queue = Collections.synchronizedList(new LinkedList<>());
+        File root = new File("D:\\Users\\bearsmalll\\IdeaProjects\\Antlr4Learning\\src\\test\\resources\\method");
         Long start = System.currentTimeMillis();
         render(root);
         Long middle = System.currentTimeMillis();
@@ -244,6 +385,7 @@ public class FileReader {
 
         int totalFiles = fileList.size();
         AtomicLong totalMethods = new AtomicLong(0);
+        AtomicLong totalLineOfMethods = new AtomicLong(0);
         for (File file:fileList){
             executorService.execute(new Runnable() {
                 @Override
@@ -274,10 +416,12 @@ public class FileReader {
                         }
                         atomicInteger.addAndGet((int) file.length());
                         DefaultCodeFile defaultCodeFile = JavaCodeFactory.getInstance().generateDefectCodeFile(file);
+                        queue.add(defaultCodeFile);
                         if(defaultCodeFile.getMethods()!=null) {
                             totalMethods.addAndGet(defaultCodeFile.getMethods().size());
                             for (ModuleEntity moduleEntity : defaultCodeFile.getMethods()) {
                                 int lines = moduleEntity.getLineEnd() - moduleEntity.getLineBegin() + 1;
+                                totalLineOfMethods.addAndGet(lines);
                                 if (lines == 1) {
                                     L1.addAndGet(1);
                                 }else if(lines==2){
@@ -339,6 +483,7 @@ public class FileReader {
         System.out.println("1024K:"+K1024+">"+K1024.get()*1.0/totalFiles);
         System.out.println("KK:"+KK+">"+KK.get()*1.0/totalFiles);
         System.out.println("------------------------");
+        System.out.println("Total Line Of Methods:"+totalLineOfMethods);
         System.out.println("Total Method Numbers:"+totalMethods);
         System.out.println("L1:"+L1+">"+L1.get()*1.0/totalMethods.get());
         System.out.println("L2:"+L2+">"+L2.get()*1.0/totalMethods.get());
@@ -356,6 +501,54 @@ public class FileReader {
         System.out.println("L200:"+L200+">"+L200.get()*1.0/totalMethods.get());
         System.out.println("L500:"+L500+">"+L500.get()*1.0/totalMethods.get());
         System.out.println("LL:"+LL+">"+LL.get()*1.0/totalMethods.get());
+        CompareDirector tokenmd  = CompareDirector.getInstance(Granularity.MLCS, 0, CompareDirector.TOKEN_COMPARE);
+        AtomicInteger simNumber = new AtomicInteger(0);
+        for(DefaultCodeFile d1:queue){
+            for(DefaultCodeFile d2:queue){
+                if(d1!=d2){
+                    if(d1.getMethods()!=null&&d2.getMethods()!=null){
+                        for(ModuleEntity md1:d1.getMethods()){
+                            for(ModuleEntity md2:d2.getMethods()){
+                                CompareResult compareResult = tokenmd.compare(convert(md1.getTokenList()),convert(md2.getTokenList()));
+                                if(compareResult.getSimvalue()>0.9){
+                                    simNumber.addAndGet(1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Sim Method Number:"+simNumber.get());
+    }
+
+    public List<LineStruct> convert(List<Token> tokens){
+        int hashValue=0;
+        int tempHashValue=0;
+        int tempLineNum=1;
+        String lineString = new String();
+        List<LineStruct> linetokenlist = new LinkedList<>();
+        for (Token token:tokens){
+            int type = token.getType();
+            if(token.getChannel()==JavaLexer.HIDDEN){
+                continue;
+            }
+            if (token.getLine()==tempLineNum){
+                lineString = lineString+" "+type;
+            }else {
+                hashValue = lineString.hashCode();
+                if(hashValue!=tempHashValue){
+                    LineStruct lineStruct=new LineStruct();
+                    lineStruct.setLineNum(tempLineNum);
+                    lineStruct.setHashValue(hashValue);
+                    linetokenlist.add(lineStruct);
+                    tempHashValue=hashValue;
+                }
+                lineString = " "+token.getText();;
+                tempLineNum = token.getLine();
+            }
+        }
+        return linetokenlist;
     }
 
     @Test

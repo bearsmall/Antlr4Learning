@@ -5,9 +5,11 @@ import com.cmp.ModuleEntity;
 import com.cmp.antlr.java.JavaParser;
 import com.cmp.antlr.java.JavaParserBaseListener;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,6 +84,34 @@ public class MethodExtractorListenner extends JavaParserBaseListener {
     public void enterMethodDeclaration(JavaParser.MethodDeclarationContext ctx) {
 //        String method = getPureContent(ctx.getStart(), ctx.getStop());
         ModuleEntity moduleEntity = extractModuleEntity(ctx.getStart(),ctx.getStop());
+        //获取参数列表
+        JavaParser.FormalParameterListContext fplc = ctx.formalParameters().formalParameterList();
+        Set<Token> methodVarSet = null;
+        if(fplc!=null){
+            methodVarSet = new HashSet<>();
+            List<JavaParser.FormalParameterContext> fpList = fplc.formalParameter();
+            for(JavaParser.FormalParameterContext fp:fpList){
+                System.out.println(fp.variableDeclaratorId());
+                methodVarSet.add(fp.variableDeclaratorId().IDENTIFIER().getSymbol());
+            }
+            JavaParser.LastFormalParameterContext lfpc = fplc.lastFormalParameter();
+            if(lfpc!=null){
+                System.out.println(lfpc.variableDeclaratorId());
+                methodVarSet.add(lfpc.variableDeclaratorId().IDENTIFIER().getSymbol());
+            }
+        }
+        if(methodVarSet!=null&&!methodVarSet.isEmpty()){ //如果函数有参数
+            moduleEntity.setDeclaredParams(new HashSet<>(methodVarSet));
+            ParseTreeWalker walker = new ParseTreeWalker();//新建一个标准的遍历器
+            LocalVariableDeclarationListenner extractor = new LocalVariableDeclarationListenner(methodVarSet);
+            walker.walk(extractor,ctx.getChild(3));
+            if(methodVarSet!=null&&!methodVarSet.isEmpty()){
+                moduleEntity.setUnUsedParams(methodVarSet);
+            }
+        }
+        ParseTreeWalker walker = new ParseTreeWalker();//新建一个标准的遍历器
+        LambdaExtractListener lambdaExtractListener = new LambdaExtractListener();
+        walker.walk(lambdaExtractListener,ctx.getChild(3));
         defaultCodeFile.getMethods().add(moduleEntity);
     }
 
