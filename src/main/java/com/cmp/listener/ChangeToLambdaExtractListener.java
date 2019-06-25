@@ -2,11 +2,14 @@ package com.cmp.listener;
 
 import com.cmp.antlr.java.JavaParser;
 import com.cmp.antlr.java.JavaParserBaseListener;
+import com.cmp.listener.replace.ReplaceConst;
+import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.Token;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Slf4j
 public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
     private char[] content;
     private List<Token> tokens;
@@ -65,7 +68,7 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                     int start = ctx.lambdaBody().block().start.getStartIndex();
                     int stop = ctx.lambdaBody().block().stop.getStopIndex();
                     for(int i=start;i<=stop;i++){
-                        content[i] =  '$';
+                        content[i] =  ReplaceConst.MARKABLE;
                     }
                     int point = start;
                     String blockContent = ctx.lambdaBody().block().blockStatement(0).statement().statementExpression.getText();
@@ -74,11 +77,11 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                     }
                     changed = true;
 //                    String str = new String(content);
-//                    System.out.println(str);
+//                    log.info(str);
                 }
             }
         }catch (Exception e){
-            System.out.println(e);
+            log.info(e.getMessage());
         }
     }
 
@@ -87,7 +90,7 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
         StringBuilder params = new StringBuilder();
         try {
             if(ctx==null||ctx.classCreatorRest()==null||ctx.classCreatorRest().arguments()==null){
-                System.out.println("not creator!");
+                log.info("not creator!");
                 return;
             }
             JavaParser.ArgumentsContext argumentsContext = ctx.classCreatorRest().arguments();
@@ -101,20 +104,20 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                             //normal params
                             return;
                         }else {
-                            System.out.println("following lambda params!");
+                            log.info("following lambda params!");
                         }
                     }
                 }
             }
             if(ctx==null||ctx.classCreatorRest()==null||ctx.classCreatorRest().classBody()==null){
-                System.out.println("not lambda!");
+                log.info("not lambda!");
                 return;
             }
             //inner class params
             List<JavaParser.ClassBodyDeclarationContext> classBodyDeclarationContextList =  ctx.classCreatorRest().classBody().classBodyDeclaration();
             if(classBodyDeclarationContextList==null||classBodyDeclarationContextList.size()!=1){
                 //inner class params，not lambda expression
-                System.out.println("not lambda!");
+                log.info("not lambda!");
             }else {
                 //lambda expression
                 JavaParser.MethodDeclarationContext methodDeclarationContext = classBodyDeclarationContextList.get(0).memberDeclaration().methodDeclaration();
@@ -124,7 +127,7 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                     if(formalParameterContextList!=null&&formalParameterContextList.size()>0){
                         //lambda expression params
                         for (JavaParser.FormalParameterContext fp : formalParameterContextList) {
-                            System.out.println(fp);
+//                            log.info(fp.toString());
                             params.append(fp.variableDeclaratorId());
                             params.append(",");
                         }
@@ -152,7 +155,7 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                 int start = ctx.getParent().start.getStartIndex();
                 int stop = ctx.getParent().stop.getStopIndex();
                 for(int i=start;i<=stop;i++){
-                    content[i] =  '$';
+                    content[i] =  ReplaceConst.MARKABLE;
                 }
                 int point = start;
                 content[point++] = '(';
@@ -166,14 +169,14 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                 content[point++] = '>';
                 for(int i=0;i<blockString.length();i++){
                     if(blockString.charAt(i)=='\n'){
-                        System.out.println("return!");
+                        log.info("return!");
                     }
                     content[point++] = blockString.charAt(i);
                 }
                 changed = true;
                 innerCount.addAndGet(1);
 //                String str = new String(content);
-//                System.out.println(str);
+//                log.info(str);
 //
 //                StringBuilder sb = new StringBuilder();
 //                sb.append(content.substring(0,blockContext.start.getStartIndex()));
@@ -184,11 +187,11 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
 //                sb.append(")->");
 //                sb.append(content.substring(blockContext.stop.getStopIndex()));
 //
-//                System.out.println(blockContext.getText());
-//                System.out.println(sb);
+//                log.info(blockContext.getText());
+//                log.info(sb);
             }
         }catch (NullPointerException e){
-            System.out.println(ctx.getText());
+            log.info(e.getMessage());
         }
     }
 }
