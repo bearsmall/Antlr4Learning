@@ -97,7 +97,7 @@ public class MethodParseListenner extends JavaParserBaseListener {
         int charEnd = stop.getStartIndex();
         int tokenStart = start.getTokenIndex();
         int tokenEnd = stop.getTokenIndex();
-        return new ModuleEntity(charStart,charEnd,tokenStart,tokenEnd,content.substring(charStart,charEnd+1),tokenList.subList(tokenStart,tokenEnd));
+        return new ModuleEntity(charStart,charEnd,tokenStart,tokenEnd,0,0,content.substring(charStart,charEnd+1),tokenList.subList(tokenStart,tokenEnd));
     }
 
     @Override
