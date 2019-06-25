@@ -2,6 +2,7 @@ package com.cmp;
 
 import com.cmp.lang.Language;
 import com.cmp.utils.IOAgent;
+import org.antlr.v4.runtime.Token;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +23,7 @@ public abstract class DefaultCodeFile{
     private List<ModuleEntity> classBlocks = new ArrayList<>();//静态代码块列表
     private List<ModuleEntity> interfaceBlocks = new ArrayList<>();//静态代码块列表
     private List<ModuleEntity> enumBlocks = new ArrayList<>();//静态代码块列表
+    private List<Token> tokenList;  //Tokens
     protected Language lang = null; //本代码文件所用的编程语言
     protected String content = null; //代码内容
     protected String filePath = null; //文件路径
@@ -181,6 +183,14 @@ public abstract class DefaultCodeFile{
 
     public void setCharHashs(int[] charHashs) {
         this.charHashs = charHashs;
+    }
+
+    public List<Token> getTokenList() {
+        return tokenList;
+    }
+
+    public void setTokenList(List<Token> tokenList) {
+        this.tokenList = tokenList;
     }
 
     public DefaultCodeFile(Language lang) {

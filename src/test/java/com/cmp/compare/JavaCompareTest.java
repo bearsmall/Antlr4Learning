@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class JavaCompareTest {
 
@@ -24,8 +25,8 @@ public class JavaCompareTest {
 
     static {
         icodeFactory = JavaCodeFactory.getInstance();
-        String src1 = JavaCompareTest.class.getClassLoader().getResource("language/java/Demo1.java").getPath();
-        String src2 = JavaCompareTest.class.getClassLoader().getResource("language/java/Demo2.java").getPath();
+        String src1 = JavaCompareTest.class.getClassLoader().getResource("language/java/complex1/Demo1.java").getPath();
+        String src2 = JavaCompareTest.class.getClassLoader().getResource("language/java/complex1/Demo2.java").getPath();
         Long start = System.currentTimeMillis();
         defaultCodeFile1 = icodeFactory.generateDefectCodeFile(new File(src1));
         defaultCodeFile2 = icodeFactory.generateDefectCodeFile(new File(src2));
@@ -50,10 +51,30 @@ public class JavaCompareTest {
 
     @Test
     public void test2(){
-        ModuleEntity moduleEntity1 = defaultCodeFile1.getClassBlocks().get(0);
-        ModuleEntity moduleEntity2 = defaultCodeFile2.getClassBlocks().get(0);
-        List<Token> tokens1 = moduleEntity1.getTokenList();
-        List<Token> tokens2 = moduleEntity2.getTokenList();
+//        ModuleEntity moduleEntity1 = defaultCodeFile1.getClassBlocks().get(0);
+//        ModuleEntity moduleEntity2 = defaultCodeFile2.getClassBlocks().get(0);
+
+        List<Token> tokenList1 = defaultCodeFile1.getMethods().get(1).getTokenList();
+        Set<Token> param1 = defaultCodeFile1.getMethods().get(1).getDeclaredParams();
+        if(defaultCodeFile1.getMethods().get(1).getUnUsedParams()!=null) {
+            param1.removeAll(defaultCodeFile1.getMethods().get(1).getUnUsedParams());
+        }
+        List<Token> tokenList2 = defaultCodeFile2.getMethods().get(1).getTokenList();
+        Set<Token> param2 = defaultCodeFile2.getMethods().get(1).getDeclaredParams();
+        if(defaultCodeFile2.getMethods().get(1).getDeclaredParams()!=null) {
+            param2.removeAll(defaultCodeFile2.getMethods().get(1).getUnUsedParams());
+        }
+        if(tokenList1.get(tokenList1.size()-1).getType()==-1){
+            tokenList1.remove(tokenList1.size()-1);
+        }
+        if(tokenList2.get(tokenList2.size()-1).getType()==-1){
+            tokenList2.remove(tokenList2.size()-1);
+        }
+        double simi = calculateTokenSimi(tokenList1, tokenList2);
+        System.out.println(simi);
+    }
+
+    private double calculateTokenSimi(List<Token> tokens1, List<Token> tokens2) {
         List<Token> tokenList = new ArrayList<>();
         tokenList.addAll(tokens1);
         tokenList.addAll(tokens2);
@@ -69,7 +90,6 @@ public class JavaCompareTest {
         System.out.println("heig : " + Arrays.toString(height));
 //        for (int i = 0; i < sa.length; i++) {
 //            System.out.println(height[i] + ":" + s.substring(sa[i]));
-//
 //        }
 
         System.out.println("-----------------------");
@@ -84,5 +104,6 @@ public class JavaCompareTest {
 //        }
         System.out.println("-----------------------");
         System.out.println(height[0]*2.0/n);
+        return height[0]*2.0/n;
     }
 }

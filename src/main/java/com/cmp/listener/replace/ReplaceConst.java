@@ -6,5 +6,5 @@ package com.cmp.listener.replace;
 public class ReplaceConst {
     public static final char EMPTY = ' ';
     public static final char SPECIAL = '$';
-    public static final char MARKABLE = SPECIAL;
+    public static final char MARKABLE = EMPTY;
 }

@@ -71,7 +71,7 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                         content[i] =  ReplaceConst.MARKABLE;
                     }
                     int point = start;
-                    String blockContent = ctx.lambdaBody().block().blockStatement(0).statement().statementExpression.getText();
+                    String blockContent = ctx.lambdaBody().block().blockStatement(0).statement().getText();
                     for(int i=0;i<blockContent.length();i++){
                         content[point++] = blockContent.charAt(i);
                     }
@@ -144,14 +144,14 @@ public class ChangeToLambdaExtractListener extends JavaParserBaseListener {
                         blockStart = blockContext.blockStatement(0).start.getStartIndex();
                         blockEnd = blockContext.blockStatement(0).stop.getStopIndex();
                     }else {
-                        blockStart = blockContext.blockStatement(0).statement().statementExpression.start.getStartIndex();
-                        blockEnd = blockContext.blockStatement(0).statement().statementExpression.stop.getStopIndex();
+                        blockStart = blockContext.blockStatement(0).statement().start.getStartIndex();
+                        blockEnd = blockContext.blockStatement(0).statement().stop.getStopIndex();
                     }
                 }else {
                     blockStart = blockContext.start.getStartIndex();
                     blockEnd = blockContext.stop.getStopIndex();
                 }
-                blockString = contentBefore.substring(blockStart,blockEnd);
+                blockString = contentBefore.substring(blockStart,blockEnd+1);
                 int start = ctx.getParent().start.getStartIndex();
                 int stop = ctx.getParent().stop.getStopIndex();
                 for(int i=start;i<=stop;i++){

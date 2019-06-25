@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.Token;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TypeArgumentsOrTypeParameters extends JavaParserBaseListener {
+public class TypeArgumentsOrTypeParametersListener extends JavaParserBaseListener {
     public static AtomicLong typeArgumentsCount = new AtomicLong(0);
     public static AtomicLong typeArgumentsOrDiamondCount = new AtomicLong(0);
     public static AtomicLong typeParameters = new AtomicLong(0);
@@ -52,7 +52,7 @@ public class TypeArgumentsOrTypeParameters extends JavaParserBaseListener {
         this.changed = changed;
     }
 
-    public TypeArgumentsOrTypeParameters(String content, List<Token> tokens) {
+    public TypeArgumentsOrTypeParametersListener(String content, List<Token> tokens) {
         this.contentBefore = content;
         this.content = content.toCharArray();
         this.tokens = tokens;
@@ -65,7 +65,7 @@ public class TypeArgumentsOrTypeParameters extends JavaParserBaseListener {
         int stop = ctx.getStop().getStopIndex();
         if (start<stop){
             for(int i=start;i<=stop;i++){
-                content[i] =  '$';
+                content[i] =  ReplaceConst.MARKABLE;
             }
             changed = true;
         }

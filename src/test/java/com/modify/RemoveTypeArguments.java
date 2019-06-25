@@ -2,7 +2,7 @@ package com.modify;
 
 import com.cmp.antlr.java.JavaLexer;
 import com.cmp.antlr.java.JavaParser;
-import com.cmp.listener.TypeArgumentsOrTypeParameters;
+import com.cmp.listener.TypeArgumentsOrTypeParametersListener;
 import com.cmp.utils.IOAgent;
 import com.util.FileExtractor;
 import com.util.TokenizationModifier;
@@ -54,7 +54,7 @@ public class RemoveTypeArguments {
                     ParseTree tree = parser.compilationUnit();
                     TokenizationModifier.tokenToLines(tokenStream);
                     ParseTreeWalker walker = new ParseTreeWalker();//新建一个标准的遍历器
-                    TypeArgumentsOrTypeParameters extractor = new TypeArgumentsOrTypeParameters(fileContent,tokenStream.getTokens());
+                    TypeArgumentsOrTypeParametersListener extractor = new TypeArgumentsOrTypeParametersListener(fileContent,tokenStream.getTokens());
                     walker.walk(extractor,tree);
                     if(extractor.isChanged()){
                         totalChangedFiles.addAndGet(1);
@@ -73,11 +73,11 @@ public class RemoveTypeArguments {
             log.info(e.getMessage());
         }
         Long end = System.currentTimeMillis();
-        log.info("typeArgumentsCount:                   "+TypeArgumentsOrTypeParameters.typeArgumentsCount.get());
-        log.info("typeArgumentsOrDiamondCount:          "+TypeArgumentsOrTypeParameters.typeArgumentsOrDiamondCount.get());
-        log.info("typeParameters:                       "+TypeArgumentsOrTypeParameters.typeParameters.get());
-        log.info("nonWildcardTypeArgumentsOrDiamond:    "+TypeArgumentsOrTypeParameters.nonWildcardTypeArgumentsOrDiamond.get());
-        log.info("nonWildcardTypeArguments:             "+TypeArgumentsOrTypeParameters.nonWildcardTypeArguments.get());
+        log.info("typeArgumentsCount:                   "+ TypeArgumentsOrTypeParametersListener.typeArgumentsCount.get());
+        log.info("typeArgumentsOrDiamondCount:          "+ TypeArgumentsOrTypeParametersListener.typeArgumentsOrDiamondCount.get());
+        log.info("typeParameters:                       "+ TypeArgumentsOrTypeParametersListener.typeParameters.get());
+        log.info("nonWildcardTypeArgumentsOrDiamond:    "+ TypeArgumentsOrTypeParametersListener.nonWildcardTypeArgumentsOrDiamond.get());
+        log.info("nonWildcardTypeArguments:             "+ TypeArgumentsOrTypeParametersListener.nonWildcardTypeArguments.get());
         log.info("Parse Spend:"+(end-middle));
         log.info("Total :       "+atomicInteger+" B | "+atomicInteger.get()/1024+ " KB | "+atomicInteger.get()/(1024*1024)+" MB");
         log.info("Total File Numbers:"+totalFiles);
