@@ -1,6 +1,5 @@
 package com.extract.demo1.function.performance;
 
-import com.cmp.utils.IOAgent;
 import com.extract.demo1.function.FunctionLevelCodeSimplifier;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -12,10 +11,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**

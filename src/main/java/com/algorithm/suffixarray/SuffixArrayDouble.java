@@ -8,17 +8,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SuffixArrayCore {
+/**
+ * 倍增法求后缀数组
+ */
+public class SuffixArrayDouble {
 
-    public static int[] generateSA(List<Token> tokens) {
-        int SIZE = calculateN(tokens.size());
+    public static int[] generateSA(int[] tokens) {
+        int SIZE = calculateN(tokens.length);
         int[] wa = new int[SIZE];
         int[] wb = new int[SIZE];
         int[] wv = new int[SIZE];
         int[] ws = new int[SIZE];
-        Token[] tk = new CommonToken[tokens.size()];
-        tokens.toArray(tk);
-        int n = tk.length;
+        int n = tokens.length;
         int m = SIZE;
         int[] x = wa;
         int[] y = wb;
@@ -26,7 +27,7 @@ public class SuffixArrayCore {
         int[] sa = new int[n];
         int i,j,p;
         for(i=0;i<m;i++) ws[i]=0;
-        for(i=0;i<n;i++) ws[x[i]=tk[i].getType()]++;
+        for(i=0;i<n;i++) ws[x[i]=tokens[i]]++;
         for(i=1;i<m;i++) ws[i]+=ws[i-1];
         for(i=n-1;i>=0;i--) sa[--ws[x[i]]]=i;
         for(j=1,p=1;p<n;j*=2,m=p){
@@ -71,9 +72,7 @@ public class SuffixArrayCore {
         return rank;
     }
 
-    public static int[] generateH(List<Token> tokens, int[] sa,int fromSize) {
-        Token[] ch = new CommonToken[tokens.size()];
-        tokens.toArray(ch);
+    public static int[] generateH(int[] tokens, int[] sa,int fromSize) {
         int n = sa.length;
         int[] h = new int[n+1];
         int[] rank = generateRank(sa);
@@ -90,7 +89,7 @@ public class SuffixArrayCore {
             }else if(sa[rank[i]-1]>=fromSize&&sa[rank[i]]>=fromSize){
                 h[rank[i++]]=-1;
             }else {
-                for (k = (k != 0 ? k - 1 : 0), j = sa[rank[i] - 1]; (i + k < n) && (j + k < n) && ch[i + k].getType() == ch[j + k].getType(); k++) {
+                for (k = (k != 0 ? k - 1 : 0), j = sa[rank[i] - 1]; (i + k < n) && (j + k < n) && tokens[i + k] == tokens[j + k]; k++) {
                 }
                 if (k > max) {
                     max = k;
@@ -104,9 +103,7 @@ public class SuffixArrayCore {
         return h;
     }
 
-    public static int[] generateH2(List<Token> tokens, int[] sa) {
-        Token[] ch = new CommonToken[tokens.size()];
-        tokens.toArray(ch);
+    public static int[] generateH2(int[] tokens, int[] sa) {
         int n = sa.length;
         int[] h = new int[n+1];
         int[] rank = generateRank(sa);
@@ -119,13 +116,13 @@ public class SuffixArrayCore {
             if(rank[i]==0){
                 continue;
             }
-            if(sa[rank[i]-1]<tokens.size()&&sa[rank[i]]<tokens.size()){
+            if(sa[rank[i]-1]<tokens.length&&sa[rank[i]]<tokens.length){
                 continue;
             }
-            if(sa[rank[i]-1]>=tokens.size()&&sa[rank[i]]>=tokens.size()){
+            if(sa[rank[i]-1]>=tokens.length&&sa[rank[i]]>=tokens.length){
                 continue;
             }
-            for (k = (k != 0 ? k-1 : 0), j = sa[rank[i]-1]; (i+k<n)&&(j+k<n)&&ch[i + k].getType() == ch[j + k].getType(); k++) {
+            for (k = (k != 0 ? k-1 : 0), j = sa[rank[i]-1]; (i+k<n)&&(j+k<n)&&tokens[i + k] == tokens[j + k]; k++) {
             }
             if(k>max){
                 max = k;
@@ -138,55 +135,17 @@ public class SuffixArrayCore {
         return h;
     }
 
-    public static double calculateTokenSimi(List<Token> tokens1, List<Token> tokens2) {
-        List<Token> tokenList = new ArrayList<>();
-        if(tokens1.get(tokens1.size()-1).getType()==-1){
-            tokens1.remove(tokens1.size()-1);
-        }
-        if(tokens2.get(tokens2.size()-1).getType()==-1){
-            tokens2.remove(tokens2.size()-1);
-        }
-        tokenList.addAll(tokens1);
-        tokenList.addAll(tokens2);
-
-        SuffixArrayCore suffixArray = new SuffixArrayCore();
-        int n = tokenList.size();
-//        s = "abcdefghijklmnopqrst";
-        int[] sa = suffixArray.generateSA(tokenList);
-        int[] rank = suffixArray.generateRank(sa);
-        int[] height = suffixArray.generateH(tokenList,sa,tokens1.size());
-//        System.out.println("sa   : " + Arrays.toString(sa));
-//        System.out.println("rank : " + Arrays.toString(rank));
-//        System.out.println("heig : " + Arrays.toString(height));
-//        for (int i = 0; i < sa.length; i++) {
-//            System.out.println(height[i] + ":" + s.substring(sa[i]));
-//        }
-
-//        System.out.println("-----------------------");
-        int s1 = sa[height[n]];
-        int s2 = sa[height[n]-1];
-//        for(int i=0;i<height[0];i++){
-//            System.out.println((i+s1)+"->"+tokenList.get(i+s1).getType());
-//        }
-//        System.out.println("-----------------------");
-//        for(int i=0;i<height[0];i++){
-//            System.out.println((i+s2)+"->"+tokenList.get(i+s2).getType());
-//        }
-        System.out.println("-----------------------");
-        System.out.println(height[0]*2.0/n);
-        return height[0]*2.0/n;
-    }
-
     public static SuffixResult compare(List<Token> tk1, List<Token> tk2){
         List<Token> tokenList = new ArrayList<>();
         tokenList.addAll(tk1);
         tokenList.add(new CommonToken(0));
         tokenList.addAll(tk2);
 
+        int[] tokens = generateTokens(tokenList);
         int n = tokenList.size();
-        int[] sa = generateSA(tokenList);
+        int[] sa = generateSA(tokens);
         int[] rank = generateRank(sa);
-        int[] height = generateH(tokenList,sa,tk1.size());
+        int[] height = generateH(tokens,sa,tk1.size());
 //        System.out.println("sa   : " + Arrays.toString(sa));
 //        System.out.println("rank : " + Arrays.toString(rank));
 //        System.out.println("heig : " + Arrays.toString(height));
@@ -225,5 +184,67 @@ public class SuffixArrayCore {
 //        }
 //        System.out.println(height[0]*2.0/(tk1.size()+tk2.size()));
         return suffixResult;
+    }
+
+    public static SuffixResult compare(int[] tk1, int[] tk2){
+        int[] tokens = new int[tk1.length+tk2.length+1];
+        int count = 0;
+        for(int i=0;i<tk1.length;i++){
+            tokens[count++] = tk1[i];
+        }
+        tokens[count++] = 0;
+        for(int i=0;i<tk2.length;i++){
+            tokens[count++] = tk2[i];
+        }
+        int n = tokens.length;
+        int[] sa = generateSA(tokens);
+//        int[] rank = generateRank(sa);
+        int[] height = generateH(tokens,sa,tk1.length);
+//        System.out.println("sa   : " + Arrays.toString(sa));
+//        System.out.println("rank : " + Arrays.toString(rank));
+//        System.out.println("heig : " + Arrays.toString(height));
+//        for (int i = 0; i < sa.length; i++) {
+//            System.out.println(height[i] + ":" + s.substring(sa[i]));
+//
+//        }
+        SuffixResult suffixResult = new SuffixResult();
+        suffixResult.setLength1(tk1.length);
+        suffixResult.setLength2(tk2.length);
+
+
+        if(height[n]==0){
+            suffixResult.setBeginIndex1(-1);
+            suffixResult.setBeginIndex2(-1);
+            suffixResult.setCommonLength(0);
+        }else {
+            int s1 = sa[height[n]];
+            int s2 = sa[height[n] - 1];
+
+            if (s1 > s2) {
+                int tmp = s1;
+                s1 = s2;
+                s2 = tmp;
+            }
+            suffixResult.setBeginIndex1(s1);
+            suffixResult.setBeginIndex2(s2 - tk1.length - 1);
+            suffixResult.setCommonLength(height[0]);
+        }
+//        for(int i=0;i<height[0];i++){
+//            System.out.println((i+s1)+"->"+tokenList.get(i+s1).getType());
+//        }
+//        System.out.println("-----------------------");
+//        for(int i=0;i<height[0];i++){
+//            System.out.println((i+s2)+"->"+tokenList.get(i+s2).getType());
+//        }
+//        System.out.println(height[0]*2.0/(tk1.size()+tk2.size()));
+        return suffixResult;
+    }
+
+    private static int[] generateTokens(List<Token> tokenList) {
+        int[] tokens = new int[tokenList.size()];
+        for(int i=0;i<tokenList.size();i++){
+            tokens[i] = tokenList.get(i).getType();
+        }
+        return tokens;
     }
 }
